@@ -1,5 +1,3 @@
-
-
 const APIkey = 'd45d73bd9864b3ae2216f9a07f82a08d';
 
 
@@ -614,14 +612,34 @@ function getWeather(lat,lon){
 }
 
 
-
-
-
 const btns = document.querySelector('#btns');
 btns.addEventListener('click',(e)=>{
     let weather = e.target.innerText.toLowerCase();
     console.log(weather)
-    new p5(rainy)
-
+    switch(weather){
+      case 'cloudy':
+        new p5(cloudy);
+        break;
+      case 'rainy':
+        new p5(rainy);
+        break;
+      case 'windy':
+        new p5(windy);
+        break;
+      case 'freeze':
+        new p5(freeze);
+        break;
+      case 'snowy':
+        new p5(snowy);
+        break;
+      case 'dusty':
+        new p5(dusty);
+        break;
+      case 'thunder':
+        new p5(thunder);
+        break;
+      case 'sunny':
+        new p5(sunny);
+        break;
+    }
 })
-
