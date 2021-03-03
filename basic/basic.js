@@ -163,7 +163,7 @@ let thunder = function(t){
         }
         move(){
             this.sec++;
-            this.range = t.random(1,10)
+            this.range = t.random(3,20)
             if(this.sec> this.range){
                 this.opacity?
                     this.opacity = 0
@@ -172,7 +172,7 @@ let thunder = function(t){
             }
         }
         display(){
-            t.translate(35,0);
+            t.translate(54,20);
             t.fill(255,255,0,this.opacity);
             t.triangle(0,0,0, 50, 50, 50);
             t.translate(15,-15);
@@ -182,6 +182,8 @@ let thunder = function(t){
 }
 
 let dusty = function(d){
+
+    
     let dustRange = document.querySelector('#input');
     let dusts=[];
     let dustW = 4;
@@ -214,39 +216,39 @@ let dusty = function(d){
     }
 
     class Dust{
-        constructor(x,y){
-            this.x = x;
-            this.y = y;
-            this.width = d.width;
-            this.height = d.height;
-            this.direction = Math.floor(Math.random()*2) ? 1: -1;
-            this.bool = true;
+        constructor(x,y,w,h){
+          this.x = x;
+          this.y = y;
+          this.w = w;
+          this.h = h;
+          this.direction = Math.floor(Math.random()*2) ? 1: -1;
+         this.bool = true;
         }
         move(){
-            if(this.bool){
-                if(Math.abs(this.x+(d.width/2-dustsW/2)-d.mouseX)<10&& Math.abs(this.y+(d.height/2-dustsW/2+dustW)-d.mouseY)<10){
-                    this.x += 5;
-                    this.y += 5;
-                }
-                this.bool = false;
-            }else{
-                if(Math.abs(this.x+(d.width/2-dustsW/2)-d.mouseX)<10&& Math.abs(this.y+(d.height/2-dustsW/2+dustW)-d.mouseY)<10){
-                    this.x -= 5;
-                    this.y -= 5;
-                }
-                this.bool = true;
+          if(this.bool){
+            if(Math.abs(this.x+(d.width/2-dustsW/2)-d.mouseX)<10&& Math.abs(this.y+(d.height/2-dustsW/2+dustW)-d.mouseY)<10){
+              this.x += 5;
+              this.y += 5;
             }
-
-
+            this.bool = false;
+          }else{
+            if(Math.abs(this.x+(d.width/2-dustsW/2)-d.mouseX)<10&& Math.abs(this.y+(d.height/2-dustsW/2+dustW)-d.mouseY)<10){
+              this.x -= 5;
+              this.y -= 5;
+            }
+            this.bool = true;
+          }
+      
+          
         }
         display(){
             d.push();
             d.fill(217,154,94,160);
             d.rectMode(d.CENTER);
-            d.rect(this.x,this.y,this.width,this.height);
+            d.rect(this.x,this.y,this.w,this.h);
             d.pop();
         }
-    }
+      }
 
     dustRange.addEventListener('change',dustChanged);
     function dustChanged(){
@@ -562,17 +564,17 @@ let freeze = function(f){
             this.count++;
         }
         display(){
-            f.translate(f.width/2+20,f.height/2+10)
+            f.translate(f.width/2+16,f.height/2+10)
             f.fill(50,160,255,100)
 
             f.push();
             f.translate(this.x1,0)
-            polygon(0,0,50,6)
+            polygon(0,0,42,6)
             f.pop();
-            f.translate(-50,-30)
+            f.translate(-40,-25)
             f.push();
             f.translate(this.x2,0)
-            polygon(0,0,38,6)
+            polygon(0,0,30,6)
             f.pop();
         }
     }
@@ -628,8 +630,10 @@ function getWeather(lat,lon){
 }
 
 
-const btns = document.querySelector('#btns');
-btns.addEventListener('click',(e)=>{
+const btnL = document.querySelector('.btns-left');
+const btnR = document.querySelector('.btns-right');
+
+btnL.addEventListener('click',(e)=>{
     let weather = e.target.innerText.toLowerCase();
     console.log(weather)
     switch(weather){
@@ -639,23 +643,30 @@ btns.addEventListener('click',(e)=>{
         case 'rainy':
             new p5(rainy);
             break;
+        case 'snowy':
+            new p5(snowy);
+            break;
+        case 'sunny':
+            new p5(sunny);
+            break;
+    }
+})
+
+btnR.addEventListener('click',(e)=>{
+    let weather = e.target.innerText.toLowerCase();
+    console.log(weather)
+    switch(weather){
         case 'windy':
             new p5(windy);
             break;
         case 'freeze':
             new p5(freeze);
             break;
-        case 'snowy':
-            new p5(snowy);
-            break;
         case 'dusty':
             new p5(dusty);
             break;
         case 'thunder':
             new p5(thunder);
-            break;
-        case 'sunny':
-            new p5(sunny);
             break;
     }
 })
