@@ -1,5 +1,3 @@
-
-
 const APIkey = 'd45d73bd9864b3ae2216f9a07f82a08d';
 
 
@@ -10,10 +8,19 @@ const weatherInfo = new Promise((resolve, reject) => {
             let lat = position.coords.latitude;
             let lon = position.coords.longitude;
             getWeather(lat,lon)
-                //resolve(getWeather(lat,lon));
+            console.log('ha')
+            //resolve(getWeather(lat,lon));
         });
     }
 });
+
+
+var canvas;
+function centerCvs(a){
+    var x = (a.windowWidth - a.width) / 2;
+    var y = (a.windowHeight - a.height) / 2;
+    canvas.position(x, y);
+}
 
 let rainy = function(r) {
     let rainRange = document.querySelector('#input');
@@ -23,7 +30,8 @@ let rainy = function(r) {
     let weight = 10*(2/rainStrength);
 
     r.setup = function(){
-        r.createCanvas(100, 100);
+        canvas = r.createCanvas(120, 120);
+        centerCvs(r);
         r.background(0,0,0)
         rainRange.addEventListener('change',rainChanged)
         function rainChanged(){
@@ -94,7 +102,8 @@ let sunny = function(s){
     let shineOpacity = 140;
 
     s.setup = function(){
-        s.createCanvas(100, 100);
+        canvas = s.createCanvas(120, 120);
+        centerCvs(s);
         s.background(255);
         s.noStroke();
         sun1 = new Sun(s.width/2,s.height/2,sunScale,shineOpacity);
@@ -134,7 +143,8 @@ let sunny = function(s){
 let thunder = function(t){
 
     t.setup = function(){
-        t.createCanvas(100, 100);
+        canvas = t.createCanvas(120, 120);
+        centerCvs(t);
         t.background(255);
         t.noStroke();
         mainobj= new MainObj();
@@ -180,7 +190,8 @@ let dusty = function(d){
     let dustsW = dustRow * dustW * 2;
 
     d.setup = function(){
-        d.createCanvas(140, 140);
+        canvas = d.createCanvas(120, 120);
+        centerCvs(d);
         for(let i =0;i<dustCol;i++){
             dusts.push([])
             for(let j =0;j<dustRow;j++){
@@ -259,7 +270,8 @@ let snowy = function(c){
     let snows =[];
 
     c.setup = function(){
-        c.createCanvas(140,140);
+        canvas = c.createCanvas(120, 120);
+        centerCvs(c);
         switch(snowAmount){
             case 1:
                 snows.push(new Snowflake(c.width/2,c.height/2))
@@ -380,7 +392,8 @@ let cloudy = function(u){
     let y;
 
     u.setup = function(){
-        u.createCanvas(140, 140);
+        canvas = u.createCanvas(120, 120);
+        centerCvs(u);
         c = {
             x:u.width/2,
             y:u.height/2
@@ -457,7 +470,8 @@ let windy = function(w){
 
 
     w.setup = function(){
-        w.createCanvas(100, 100);
+        canvas = w.createCanvas(120, 120);
+        centerCvs(w);
         createWinds();
     }
 
@@ -517,11 +531,11 @@ let windy = function(w){
 let freeze = function(f){
 
     f.setup = function(){
-        f.createCanvas(140, 140)
+        canvas = f.createCanvas(120, 120);
+        centerCvs(f);
         f.background(255)
         f.noStroke();
         mainobj= new MainObj()
-
     }
 
     f.draw = function() {
@@ -581,18 +595,18 @@ let freeze = function(f){
 
 
 
-//let rainy = new p5(rain);
 function getWeather(lat,lon){
     fetch(
         `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`
-     ).then(function(response){
-            return response.json();
-     }).then(function(json){
-            return json.weather[0].main;
-     }).then(function(weather){
+    ).then(function(response){
+        return response.json();
+    }).then(function(json){
+        return json.weather[0].main;
+    }).then(function(weather){
+        console.log(weather)
         switch(weather){
             case 'Clouds' :
-                new p5(freeze,window.document.getElementById('container'))
+                new p5(freeze)
                 break;
             case 'Snow' :
                 console.log('cloudy');
@@ -614,14 +628,34 @@ function getWeather(lat,lon){
 }
 
 
-
-
-
 const btns = document.querySelector('#btns');
 btns.addEventListener('click',(e)=>{
     let weather = e.target.innerText.toLowerCase();
     console.log(weather)
-    new p5(rainy)
-
+    switch(weather){
+        case 'cloudy':
+            new p5(cloudy);
+            break;
+        case 'rainy':
+            new p5(rainy);
+            break;
+        case 'windy':
+            new p5(windy);
+            break;
+        case 'freeze':
+            new p5(freeze);
+            break;
+        case 'snowy':
+            new p5(snowy);
+            break;
+        case 'dusty':
+            new p5(dusty);
+            break;
+        case 'thunder':
+            new p5(thunder);
+            break;
+        case 'sunny':
+            new p5(sunny);
+            break;
+    }
 })
-
