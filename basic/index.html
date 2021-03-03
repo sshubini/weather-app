@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <title>Document</title>
     <style>
         body{
@@ -28,7 +29,7 @@
             height: 50px;
         }
         .weather{
-            border:1px solid #e9e9e9;
+           /* // border:1px solid #e9e9e9; */
             width: 120px;
             height: 120px;
         }
@@ -41,15 +42,9 @@
 </head>
 <body>
 <div class="wrap">
-    <ul id="btns">
+    <ul class="btns-left">
         <li>
             <button>SUNNY</button>
-        </li>
-        <li>
-            <button>THUNDER</button>
-        </li>
-        <li>
-            <button>FREEZE</button>
         </li>
         <li>
             <button>CLOUDY</button>
@@ -60,17 +55,26 @@
         <li>
             <button>SNOWY</button>
         </li>
+        
+    </ul>
+    <div class="weather">
+        <input type="range" id ="input" min="2" max="6" value="3">
+        <div id="container"></div>
+    </div>
+    <ul class="btns-right">
         <li>
             <button>WINDY</button>
         </li>
         <li>
             <button>DUSTY</button>
         </li>
+        <li>
+            <button>THUNDER</button>
+        </li>
+        <li>
+            <button>FREEZE</button>
+        </li>
     </ul>
-    <div class="weather">
-        <input type="range" id ="input" min="2" max="6" value="3">
-        <div id="container"></div>
-    </div>
 </div>
 <script src="basic.js"></script>
 <script src="../p5.js"></script>
