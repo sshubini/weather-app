@@ -1,5 +1,5 @@
 const APIkey = 'd45d73bd9864b3ae2216f9a07f82a08d';
-
+const inputs = document.querySelector('input');
 
 const weatherInfo = new Promise((resolve, reject) => {
     if('geolocation' in navigator) {
@@ -8,22 +8,62 @@ const weatherInfo = new Promise((resolve, reject) => {
             let lat = position.coords.latitude;
             let lon = position.coords.longitude;
             getWeather(lat,lon)
-            console.log('ha')
-            //resolve(getWeather(lat,lon));
         });
     }
 });
 
-
-var canvas;
-function centerCvs(a){
-    var x = (a.windowWidth - a.width) / 2;
-    var y = (a.windowHeight - a.height) / 2;
-    canvas.position(x, y);
+function getWeather(lat,lon){
+    fetch(
+        `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`
+    ).then(function(response){
+        return response.json();
+    }).then(function(json){
+        return json.weather[0].main;
+    }).then(function(weather){
+        console.log(weather)
+        switch(weather){
+            case 'Clouds' :
+                new p5(cloudy)
+                break;
+            case 'Snow' :
+                new p5(snowy)
+                break;
+            case 'Rain'||'Drizzle' :
+                new p5(rainy)
+                break;
+            case 'Clear' :
+                new p5(sunny)
+                break;
+            case 'Dust'||'Ash' :
+                new p5(dusty)
+                break;
+            case 'Thunderstorm' :
+                new p5(thunder)
+                break;
+            case 'Tornado' :
+                new p5(thunder)
+                break;
+        }
+    })
 }
+
+let canvas;
+// function centerCvs(a){
+//     var x = (a.windowWidth - a.width) / 2;
+//     var y = (a.windowHeight - a.height) / 2;
+//     canvas.position(x, y);
+// }
+function inputInit(name,min,max,value,step){
+    name.setAttribute('min',min.toString());
+    name.setAttribute('max',max.toString());
+    name.setAttribute('value',value.toString());
+    name.setAttribute('step',step.toString());
+}
+let bgColor= 'rgb(240,241,246)'
 
 let rainy = function(r) {
     let rainRange = document.querySelector('#input');
+    inputInit(rainRange,2,8,3,1)
     let rainStrength = rainRange.value;
     let rains=[];
     let drops=[];
@@ -31,24 +71,7 @@ let rainy = function(r) {
 
     r.setup = function(){
         canvas = r.createCanvas(120, 120);
-        centerCvs(r);
-        r.background(0,0,0)
-        rainRange.addEventListener('change',rainChanged)
-        function rainChanged(){
-            rainStrength = rainRange.value;
-            rains=[];
-            drops=[];
-            weight = 10*(2/rainStrength);
-            objW = (rainStrength-1)*weight*(1/rainStrength);
-            for(let i = 0 ; i < rainStrength*3; i++){
-                let x1= i*weight*2+weight/2;
-                let y1= r.random(0,r.height);
-                let length = r.random(10,40);
-                let speed = r.random(0,1)+rainStrength/2;
-                rains.push(new Rain(x1,y1,x1,y1+length+rainStrength,speed));
-                drops.push(new Rain(x1,y1,x1,y1,speed+1));
-            }
-        }
+        canvas.parent('container');
         for(let i = 0 ; i < rainStrength*3; i++){
             let x1= i*weight*2+weight/2;
             let y1= r.random(0,r.height);
@@ -60,7 +83,7 @@ let rainy = function(r) {
     }
 
     r.draw = function(){
-        r.background(255);
+        r.background(bgColor);
         for(let i = 0 ; i < rainStrength*3; i++){
             rains[i].display();
             rains[i].move();
@@ -94,23 +117,43 @@ let rainy = function(r) {
         }
     }
 
-}
+    rainRange.addEventListener('change',rainChanged)
+    function rainChanged(){
+        rainStrength = rainRange.value;
+        rains=[];
+        drops=[];
+        weight = 10*(2/rainStrength);
+        objW = (rainStrength-1)*weight*(1/rainStrength);
+        for(let i = 0 ; i < rainStrength*3; i++){
+            let x1= i*weight*2+weight/2;
+            let y1= r.random(0,r.height);
+            let length = r.random(10,40);
+            let speed = r.random(0,1)+rainStrength/2;
+            rains.push(new Rain(x1,y1,x1,y1+length+rainStrength,speed));
+            drops.push(new Rain(x1,y1,x1,y1,speed+1));
+        }
+    }
 
+}
 let sunny = function(s){
+
+    let sunRange = document.querySelector('#input');
+    inputInit(sunRange,1,9,3,2);
+    let G = 220-parseInt(sunRange.value)*10;
+    let B = 80-parseInt(sunRange.value)*10;
     let sunScale = 60;
     let maxScale =100;
     let shineOpacity = 140;
 
     s.setup = function(){
         canvas = s.createCanvas(120, 120);
-        centerCvs(s);
-        s.background(255);
+        canvas.parent('container');
         s.noStroke();
         sun1 = new Sun(s.width/2,s.height/2,sunScale,shineOpacity);
         sun2 = new Sun(s.width/2,s.height/2,sunScale,255)
     }
     s.draw = function(){
-        s.background(255);
+        s.background(bgColor);
         sun1.display();
         sun1.move();
         sun2.display();
@@ -131,27 +174,30 @@ let sunny = function(s){
                 this.scale = sunScale;
                 this.opacity = shineOpacity;
             }
-
         }
         display(){
-            s. fill(255,217,79,this.opacity);
+            s.fill(255,G,B,this.opacity);
             s.ellipse(this.x,this.x,this.scale,this.scale);
         }
     }
-}
+    sunRange.addEventListener('change',sunChanged)
+    function sunChanged(){
+         G = 220-parseInt(sunRange.value)*10;
+         B = 80-parseInt(sunRange.value)*10;
+    }
 
+}
 let thunder = function(t){
 
     t.setup = function(){
         canvas = t.createCanvas(120, 120);
-        centerCvs(t);
-        t.background(255);
+        canvas.parent('container');
         t.noStroke();
         mainobj= new MainObj();
     }
 
     t.draw = function(){
-        t.background(255);
+        t.background(bgColor);
         mainobj.display();
         mainobj.move();
     }
@@ -180,11 +226,9 @@ let thunder = function(t){
         }
     }
 }
-
 let dusty = function(d){
-
-    
     let dustRange = document.querySelector('#input');
+    inputInit(dustRange,1,5,2,1)
     let dusts=[];
     let dustW = 4;
     let dustCol= dustRange.value*3;
@@ -193,7 +237,7 @@ let dusty = function(d){
 
     d.setup = function(){
         canvas = d.createCanvas(120, 120);
-        centerCvs(d);
+        canvas.parent('container');
         for(let i =0;i<dustCol;i++){
             dusts.push([])
             for(let j =0;j<dustRow;j++){
@@ -203,7 +247,7 @@ let dusty = function(d){
     }
 
     d.draw = function(){
-        d.background(255);
+        d.background(bgColor);
         d.translate(d.width/2 -dustsW/2 +dustW,d.height/2 -dustsW/2+dustW);
         d.noStroke();
         for(let i =0;i<dustCol;i++){
@@ -238,8 +282,8 @@ let dusty = function(d){
             }
             this.bool = true;
           }
-      
-          
+
+
         }
         display(){
             d.push();
@@ -265,15 +309,15 @@ let dusty = function(d){
     }
 
 }
-
 let snowy = function(c){
     let snow = document.querySelector('#input');
+    inputInit(snow,1,7,3,2)
     let snowAmount = parseInt(snow.value);
     let snows =[];
 
     c.setup = function(){
         canvas = c.createCanvas(120, 120);
-        centerCvs(c);
+        canvas.parent('container');
         switch(snowAmount){
             case 1:
                 snows.push(new Snowflake(c.width/2,c.height/2))
@@ -303,7 +347,7 @@ let snowy = function(c){
     }
 
     c.draw = function(){
-        c.background(255);
+        c.background(bgColor);
         for(let i =0;i<snowAmount;i++){
             snows[i].display();
             snows[i].move();
@@ -355,7 +399,6 @@ let snowy = function(c){
     function snowChanged(){
         snows=[];
         snowAmount = parseInt(snow.value);
-
         switch(snowAmount){
             case 1:
                 snows.push(new Snowflake(c.width/2,c.height/2))
@@ -384,24 +427,23 @@ let snowy = function(c){
         }
     }
 }
-
 let cloudy = function(u){
-    let amount = document.querySelector('#input');
+    let cloudRange = document.querySelector('#input');
+    inputInit(cloudRange,1,7,3,1)
     let c;
     let clouds=[];
-    let cloudAmount = parseInt(amount.value);
+    let cloudAmount = parseInt(cloudRange.value);
     let weight = 28;
     let y;
 
     u.setup = function(){
         canvas = u.createCanvas(120, 120);
-        centerCvs(u);
+        canvas.parent('container');
         c = {
             x:u.width/2,
             y:u.height/2
         }
-        y = c.y-((cloudAmount-1)*(weight/2))+(cloudAmount-1)*5;
-
+        y = u.height/2-((cloudAmount-1)*(weight/2))+(cloudAmount-1)*5;
         for(let i =0;i<cloudAmount;i++){
             let randomSpeed=(Math.random()/5)+0.1;
             let randomDirection= Math.round(Math.random()*1);
@@ -411,7 +453,7 @@ let cloudy = function(u){
     }
 
     u.draw = function(){
-        u.background(255);
+        u.background(bgColor);
         for(let i =0;i<clouds.length;i++){
             clouds[i].display();
             clouds[i].move();
@@ -448,11 +490,11 @@ let cloudy = function(u){
     }
 
 
-    amount.addEventListener('change',amountChanged);
+    cloudRange.addEventListener('change',amountChanged);
 
     function amountChanged(){
         clouds=[];
-        cloudAmount = parseInt(amount.value);
+        cloudAmount = parseInt(cloudRange.value);
         y = c.y-((cloudAmount-1)*(weight/2))+(cloudAmount-1)*5;
         for(let i =0;i<cloudAmount;i++){
             let randomSpeed=(Math.random()/5)+0.1;
@@ -462,18 +504,16 @@ let cloudy = function(u){
         }
     }
 }
-
 let windy = function(w){
-
+    let windRange = document.querySelector('#input');
+    inputInit(windRange,1,6,2,1)
+    let windSpeed = parseInt(windRange.value);
+    let windPower = parseInt(windRange.value*2);
     let winds =[];
-    let speed = document.querySelector('#input');
-    let windSpeed = parseInt(speed.value);
-    let windPower = parseInt(speed.value*2);
-
 
     w.setup = function(){
         canvas = w.createCanvas(120, 120);
-        centerCvs(w);
+        canvas.parent('container');
         createWinds();
     }
 
@@ -488,7 +528,7 @@ let windy = function(w){
     }
 
     w.draw = function(){
-        w.background(255);
+        w.background(bgColor);
         for(let i=0; i<winds.length ;i++){
             winds[i].display();
             winds[i].move();
@@ -518,32 +558,33 @@ let windy = function(w){
         }
     }
 
-
 // event listeners
-    speed.addEventListener('change',speedChanged)
-
-    function speedChanged(){
+    windRange.addEventListener('change',windChanged)
+    function windChanged(){
         windSpeed = parseInt(this.value);
         windPower = parseInt(this.value*2);
         winds =[];
         createWinds();
     }
 }
-
 let freeze = function(f){
+
+    let freezeRange = document.querySelector('#input');
+    inputInit(freezeRange,2,8,6,2);
+    let shiver = Math.floor(24/parseInt(freezeRange.value));
+    let mainObj;
 
     f.setup = function(){
         canvas = f.createCanvas(120, 120);
-        centerCvs(f);
-        f.background(255)
+        canvas.parent('container');
         f.noStroke();
-        mainobj= new MainObj()
+        mainObj= new MainObj()
     }
 
     f.draw = function() {
-        f.background(255);
-        mainobj.display();
-        mainobj.move();
+        f.background(bgColor);
+        mainObj.display();
+        mainObj.move();
     }
 
     class MainObj{
@@ -554,8 +595,7 @@ let freeze = function(f){
             this.x2 =0;
         }
         move(){
-
-            if(this.count===4){
+            if(this.count=== shiver){
                 this.direction = -this.direction;
                 this.count = 0;
             }
@@ -566,7 +606,6 @@ let freeze = function(f){
         display(){
             f.translate(f.width/2+16,f.height/2+10)
             f.fill(50,160,255,100)
-
             f.push();
             f.translate(this.x1,0)
             polygon(0,0,42,6)
@@ -579,7 +618,6 @@ let freeze = function(f){
         }
     }
 
-
     function polygon(x, y, radius, npoints) {
         let angle = f.TWO_PI / npoints;
         f.beginShape();
@@ -591,51 +629,19 @@ let freeze = function(f){
         f.endShape(f.CLOSE);
     }
 
-
-
-}
-
-
-
-function getWeather(lat,lon){
-    fetch(
-        `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`
-    ).then(function(response){
-        return response.json();
-    }).then(function(json){
-        return json.weather[0].main;
-    }).then(function(weather){
-        console.log(weather)
-        switch(weather){
-            case 'Clouds' :
-                new p5(freeze)
-                break;
-            case 'Snow' :
-                console.log('cloudy');
-                break;
-            case 'Rain' :
-                console.log('cloudy');
-                break;
-            case '' :
-                console.log('cloudy');
-                break;
-            case '' :
-                console.log('cloudy');
-                break;
-            case '' :
-                console.log('cloudy');
-                break;
-        }
-    })
+    freezeRange.addEventListener('change',freezeChanged)
+    function freezeChanged(){
+        freezeRange = document.querySelector('#input');
+        shiver = Math.floor(24/parseInt(freezeRange.value));
+    }
 }
 
 
 const btnL = document.querySelector('.btns-left');
 const btnR = document.querySelector('.btns-right');
-
+const cont = document.querySelector('#container');
 btnL.addEventListener('click',(e)=>{
     let weather = e.target.innerText.toLowerCase();
-    console.log(weather)
     switch(weather){
         case 'cloudy':
             new p5(cloudy);
@@ -650,11 +656,14 @@ btnL.addEventListener('click',(e)=>{
             new p5(sunny);
             break;
     }
-})
+    if(cont.childElementCount >= 1){
+        cont.removeChild(cont.firstChild)
+    }
 
+
+});
 btnR.addEventListener('click',(e)=>{
     let weather = e.target.innerText.toLowerCase();
-    console.log(weather)
     switch(weather){
         case 'windy':
             new p5(windy);
@@ -669,4 +678,11 @@ btnR.addEventListener('click',(e)=>{
             new p5(thunder);
             break;
     }
-})
+    if(cont.childElementCount >= 1){
+        cont.removeChild(cont.firstChild)
+    }
+});
+window.addEventListener('resize' , canvasPosition)
+function canvasPosition(){
+    centerCvs(a);
+}
