@@ -12,6 +12,8 @@ const weatherInfo = new Promise((resolve, reject) => {
     }
 });
 
+const title = document.querySelector("select");
+console.dir(title.children)
 function getWeather(lat,lon){
     fetch(
         `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`
@@ -22,19 +24,23 @@ function getWeather(lat,lon){
     }).then(function(weather){
         console.log(weather)
         switch(weather){
-            case 'Clouds' :
-                new p5(cloudy)
+            case 'Clear' :
+                new p5(sunny)
+                break;
+            case 'Clouds':
+            case 'Mist':
+                new p5(cloudy);
+                title.children[1].setAttribute('selected','selected')
+                break;
+            case 'Rain':
+            case 'Drizzle':
+                new p5(rainy)
                 break;
             case 'Snow' :
                 new p5(snowy)
                 break;
-            case 'Rain'||'Drizzle' :
-                new p5(rainy)
-                break;
-            case 'Clear' :
-                new p5(sunny)
-                break;
-            case 'Dust'||'Ash' :
+            case 'Dust':
+            case 'Ash':
                 new p5(dusty)
                 break;
             case 'Thunderstorm' :
@@ -48,11 +54,7 @@ function getWeather(lat,lon){
 }
 
 let canvas;
-// function centerCvs(a){
-//     var x = (a.windowWidth - a.width) / 2;
-//     var y = (a.windowHeight - a.height) / 2;
-//     canvas.position(x, y);
-// }
+
 function inputInit(name,min,max,value,step){
     name.setAttribute('min',min.toString());
     name.setAttribute('max',max.toString());
@@ -640,49 +642,45 @@ let freeze = function(f){
 const btnL = document.querySelector('.btns-left');
 const btnR = document.querySelector('.btns-right');
 const cont = document.querySelector('#container');
-btnL.addEventListener('click',(e)=>{
-    let weather = e.target.innerText.toLowerCase();
-    switch(weather){
-        case 'cloudy':
-            new p5(cloudy);
-            break;
-        case 'rainy':
-            new p5(rainy);
-            break;
-        case 'snowy':
-            new p5(snowy);
-            break;
-        case 'sunny':
-            new p5(sunny);
-            break;
-    }
-    if(cont.childElementCount >= 1){
-        cont.removeChild(cont.firstChild)
-    }
-
-
-});
-btnR.addEventListener('click',(e)=>{
-    let weather = e.target.innerText.toLowerCase();
-    switch(weather){
-        case 'windy':
-            new p5(windy);
-            break;
-        case 'freeze':
-            new p5(freeze);
-            break;
-        case 'dusty':
-            new p5(dusty);
-            break;
-        case 'thunder':
-            new p5(thunder);
-            break;
-    }
-    if(cont.childElementCount >= 1){
-        cont.removeChild(cont.firstChild)
-    }
-});
-window.addEventListener('resize' , canvasPosition)
-function canvasPosition(){
-    centerCvs(a);
-}
+// btnL.addEventListener('click',(e)=>{
+//     let weather = e.target.innerText.toLowerCase();
+//     switch(weather){
+//         case 'cloudy':
+//             new p5(cloudy);
+//             break;
+//         case 'rainy':
+//             new p5(rainy);
+//             break;
+//         case 'snowy':
+//             new p5(snowy);
+//             break;
+//         case 'sunny':
+//             new p5(sunny);
+//             break;
+//     }
+//     if(cont.childElementCount >= 2){
+//         cont.removeChild(cont.firstChild);
+//     }
+//
+//
+// });
+// btnR.addEventListener('click',(e)=>{
+//     let weather = e.target.innerText.toLowerCase();
+//     switch(weather){
+//         case 'windy':
+//             new p5(windy);
+//             break;
+//         case 'freeze':
+//             new p5(freeze);
+//             break;
+//         case 'dusty':
+//             new p5(dusty);
+//             break;
+//         case 'thunder':
+//             new p5(thunder);
+//             break;
+//     }
+//     if(cont.childElementCount >= 2){
+//         cont.removeChild(cont.firstChild);
+//     }
+// });

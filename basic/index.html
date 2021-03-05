@@ -28,12 +28,12 @@
         }
         h1{
             font-family: 'Poppins', sans-serif;
-            /*font-family: 'Roboto', sans-serif;*/
-            font-weight: 600;
+            font-weight: 900;
             letter-spacing: 0.1em;
-            color:#fff;
             font-size: 40px;
-            margin-bottom:20px;
+            margin-top:20px;
+            color: rgba( 255, 255, 255, 0.80 );
+            text-shadow: 0 8px 10px rgba(194, 122, 59, 0.60 );
         }
         #out-container{
             display: flex;
@@ -58,7 +58,7 @@
         input[type=range] {
             height: 56px;
             -webkit-appearance: none;
-            margin: 10px 5%;
+            margin: -140px 10px 5%;
             width: 90%;
             background: transparent;
         }
@@ -96,8 +96,6 @@
             letter-spacing: 0.1em;
             color: #748ebf;
             border:none;
-            width: 100px;
-            height: 70px;
             background: rgba( 255, 255, 255, 0.20 );
             box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.15 );
             backdrop-filter: blur( 7px );
@@ -111,42 +109,52 @@
 <body>
 
 <div id="wrap">
-    <h1>Sunny day</h1>
     <div id="out-container">
-        <ul class="btns-left">
-            <li>
-                <button>SUNNY</button>
-            </li>
-            <li>
-                <button>CLOUDY</button>
-            </li>
-            <li>
-                <button>RAINY</button>
-            </li>
-            <li>
-                <button>SNOWY</button>
-            </li>
+<!--        <ul class="btns-left">-->
+<!--            <li>-->
+<!--                <button>SUNNY</button>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <button>CLOUDY</button>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <button>RAINY</button>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <button>SNOWY</button>-->
+<!--            </li>-->
 
-        </ul>
+<!--        </ul>-->
+<!--        <ul class="btns-right">-->
+<!--            <li>-->
+<!--                <button>WINDY</button>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <button>DUSTY</button>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <button>THUNDER</button>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                <button>FREEZE</button>-->
+<!--            </li>-->
+<!--        </ul>-->
         <div class="weather">
             <div id="container"></div>
             <input type="range" id ="input" min="1" max="7" value="3">
         </div>
-        <ul class="btns-right">
-            <li>
-                <button>WINDY</button>
-            </li>
-            <li>
-                <button>DUSTY</button>
-            </li>
-            <li>
-                <button>THUNDER</button>
-            </li>
-            <li>
-                <button>FREEZE</button>
-            </li>
-        </ul>
     </div>
+    <select name="btns" id="weather-select">
+        <option value="sunny">SUNNY</option>
+        <option value="cloudy">CLOUDY</option>
+        <option value="rainy">RAINY</option>
+        <option value="snowy">SNOWY</option>
+        <option value="windy">WINDY</option>
+        <option value="dusty">DUSTY</option>
+        <option value="thunder">THUNDER</option>
+        <option value="freeze">FREEZE</option>
+    </select>
+    <h1>Sunny day</h1>
 </div>
 <script src="basic.js"></script>
 <script src="../p5.js"></script>
