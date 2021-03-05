@@ -12,8 +12,7 @@ const weatherInfo = new Promise((resolve, reject) => {
     }
 });
 
-const title = document.querySelector("select");
-console.dir(title.children)
+
 function getWeather(lat,lon){
     fetch(
         `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`
@@ -30,7 +29,6 @@ function getWeather(lat,lon){
             case 'Clouds':
             case 'Mist':
                 new p5(cloudy);
-                title.children[1].setAttribute('selected','selected')
                 break;
             case 'Rain':
             case 'Drizzle':
@@ -73,7 +71,7 @@ let rainy = function(r) {
 
     r.setup = function(){
         canvas = r.createCanvas(120, 120);
-        canvas.parent('container');
+        canvas.parent('canvas-wrap');
         for(let i = 0 ; i < rainStrength*3; i++){
             let x1= i*weight*2+weight/2;
             let y1= r.random(0,r.height);
@@ -149,7 +147,7 @@ let sunny = function(s){
 
     s.setup = function(){
         canvas = s.createCanvas(120, 120);
-        canvas.parent('container');
+        canvas.parent('canvas-wrap');
         s.noStroke();
         sun1 = new Sun(s.width/2,s.height/2,sunScale,shineOpacity);
         sun2 = new Sun(s.width/2,s.height/2,sunScale,255)
@@ -193,7 +191,7 @@ let thunder = function(t){
 
     t.setup = function(){
         canvas = t.createCanvas(120, 120);
-        canvas.parent('container');
+        canvas.parent('canvas-wrap');
         t.noStroke();
         mainobj= new MainObj();
     }
@@ -239,7 +237,7 @@ let dusty = function(d){
 
     d.setup = function(){
         canvas = d.createCanvas(120, 120);
-        canvas.parent('container');
+        canvas.parent('canvas-wrap');
         for(let i =0;i<dustCol;i++){
             dusts.push([])
             for(let j =0;j<dustRow;j++){
@@ -319,7 +317,7 @@ let snowy = function(c){
 
     c.setup = function(){
         canvas = c.createCanvas(120, 120);
-        canvas.parent('container');
+        canvas.parent('canvas-wrap');
         switch(snowAmount){
             case 1:
                 snows.push(new Snowflake(c.width/2,c.height/2))
@@ -440,7 +438,7 @@ let cloudy = function(u){
 
     u.setup = function(){
         canvas = u.createCanvas(120, 120);
-        canvas.parent('container');
+        canvas.parent('canvas-wrap');
         c = {
             x:u.width/2,
             y:u.height/2
@@ -515,7 +513,7 @@ let windy = function(w){
 
     w.setup = function(){
         canvas = w.createCanvas(120, 120);
-        canvas.parent('container');
+        canvas.parent('canvas-wrap');
         createWinds();
     }
 
@@ -578,7 +576,7 @@ let freeze = function(f){
 
     f.setup = function(){
         canvas = f.createCanvas(120, 120);
-        canvas.parent('container');
+        canvas.parent('canvas-wrap');
         f.noStroke();
         mainObj= new MainObj()
     }
@@ -639,9 +637,48 @@ let freeze = function(f){
 }
 
 
-const btnL = document.querySelector('.btns-left');
-const btnR = document.querySelector('.btns-right');
-const cont = document.querySelector('#container');
+const title = document.querySelector('.title');
+console.log(title)
+for(let i =0;i<title.childElementCount;i++){
+    title.children[i].style.left = `${i*100}%`
+}
+title.style.transform = `translateX(-${100}%)`;
+
+title.addEventListener('mousedown',mouseDown)
+title.addEventListener('mouseUp',mouseUp)
+title.addEventListener('mousemove',mouseMove)
+title.addEventListener('mouseleave',mouseLeave)
+
+let startX,lastX,diffX;
+let tX=0;
+let isDrag = false;
+function mouseDown(e){
+    console.log('down');
+    //초기x값을 셋팅하고 인덱스를 파악?
+    isDrag=true;
+    startX = e.clientX; //200
+
+}
+function mouseUp(){
+    console.log('up')
+    //마우스 무빙 방향을 파악하여 100%*i에 스냅됨
+    isDrag=false;
+
+}
+function mouseMove(e){
+    console.log('move',e.clientX);
+    if(isDrag){
+        var moveX = startX-e.clientX;
+        title.style.transform=`translateX(-${moveX}px)`
+    }
+    //title을 translate으로 움직인만큼 움직
+}
+function mouseLeave(){
+    console.log('leave')
+    //스냅되고 이벤트를 remove
+    isDrag=false;
+}
+
 // btnL.addEventListener('click',(e)=>{
 //     let weather = e.target.innerText.toLowerCase();
 //     switch(weather){
