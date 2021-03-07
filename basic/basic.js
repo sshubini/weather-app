@@ -1,5 +1,6 @@
 const APIkey = 'd45d73bd9864b3ae2216f9a07f82a08d';
 const inputs = document.querySelector('input');
+let idx;
 
 const weatherInfo = new Promise((resolve, reject) => {
     if('geolocation' in navigator) {
@@ -12,8 +13,6 @@ const weatherInfo = new Promise((resolve, reject) => {
     }
 });
 
-const title = document.querySelector("select");
-console.dir(title.children)
 function getWeather(lat,lon){
     fetch(
         `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`
@@ -22,36 +21,46 @@ function getWeather(lat,lon){
     }).then(function(json){
         return json.weather[0].main;
     }).then(function(weather){
-        console.log(weather)
+       console.log(weather)
         switch(weather){
             case 'Clear' :
-                new p5(sunny)
+                new p5(sunny);
+                idx = 0;
                 break;
             case 'Clouds':
             case 'Mist':
                 new p5(cloudy);
-                title.children[1].setAttribute('selected','selected')
+                idx = 1;
                 break;
             case 'Rain':
             case 'Drizzle':
-                new p5(rainy)
+                new p5(rainy);
+                idx = 2;
                 break;
             case 'Snow' :
-                new p5(snowy)
+                new p5(snowy);
+                idx = 3;
+                break;
+            case 'Tornado' :
+                new p5(windy);
+                idx = 4;
                 break;
             case 'Dust':
             case 'Ash':
-                new p5(dusty)
+                new p5(dusty);
+                idx = 5;
                 break;
             case 'Thunderstorm' :
-                new p5(thunder)
+                new p5(thunder);
+                idx = 6;
                 break;
-            case 'Tornado' :
-                new p5(thunder)
-                break;
+            
         }
+        
     })
+    
 }
+
 
 let canvas;
 
@@ -637,50 +646,3 @@ let freeze = function(f){
         shiver = Math.floor(24/parseInt(freezeRange.value));
     }
 }
-
-
-const btnL = document.querySelector('.btns-left');
-const btnR = document.querySelector('.btns-right');
-const cont = document.querySelector('#container');
-// btnL.addEventListener('click',(e)=>{
-//     let weather = e.target.innerText.toLowerCase();
-//     switch(weather){
-//         case 'cloudy':
-//             new p5(cloudy);
-//             break;
-//         case 'rainy':
-//             new p5(rainy);
-//             break;
-//         case 'snowy':
-//             new p5(snowy);
-//             break;
-//         case 'sunny':
-//             new p5(sunny);
-//             break;
-//     }
-//     if(cont.childElementCount >= 2){
-//         cont.removeChild(cont.firstChild);
-//     }
-//
-//
-// });
-// btnR.addEventListener('click',(e)=>{
-//     let weather = e.target.innerText.toLowerCase();
-//     switch(weather){
-//         case 'windy':
-//             new p5(windy);
-//             break;
-//         case 'freeze':
-//             new p5(freeze);
-//             break;
-//         case 'dusty':
-//             new p5(dusty);
-//             break;
-//         case 'thunder':
-//             new p5(thunder);
-//             break;
-//     }
-//     if(cont.childElementCount >= 2){
-//         cont.removeChild(cont.firstChild);
-//     }
-// });
