@@ -1,5 +1,6 @@
 const APIkey = 'd45d73bd9864b3ae2216f9a07f82a08d';
 const inputs = document.querySelector('input');
+const cityBox = document.querySelector('.city');
 let idx;
 
 const weatherInfo = new Promise((resolve, reject) => {
@@ -8,60 +9,76 @@ const weatherInfo = new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition((position) => {
             let lat = position.coords.latitude;
             let lon = position.coords.longitude;
-            getWeather(lat,lon)
+            getInfo(lat,lon)
         });
     }
 });
 
-function getWeather(lat,lon){
+function getInfo(lat,lon){
     fetch(
         `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`
     ).then(function(response){
         return response.json();
     }).then(function(json){
-        return json.weather[0].main;
-    }).then(function(weather){
-       console.log(weather)
-        switch(weather){
-            case 'Clear' :
-                new p5(sunny);
-                idx = 0;
-                break;
-            case 'Clouds':
-            case 'Mist':
-                new p5(cloudy);
-                idx = 1;
-                break;
-            case 'Rain':
-            case 'Drizzle':
-                new p5(rainy);
-                idx = 2;
-                break;
-            case 'Snow' :
-                new p5(snowy);
-                idx = 3;
-                break;
-            case 'Tornado' :
-                new p5(windy);
-                idx = 4;
-                break;
-            case 'Dust':
-            case 'Ash':
-                new p5(dusty);
-                idx = 5;
-                break;
-            case 'Thunderstorm' :
-                new p5(thunder);
-                idx = 6;
-                break;
-            
+        console.log(json)
+        return {
+            city: json.name,
+            temp: Math.round(json.main.temp- 273.15),
+            weather:json.weather[0].main,
         }
-        
+    }).then(function(info){
+        console.log(info)
+        setCity(info.city);
+        setWeather(info.weather);
+    console.log(setDate())
     })
-    
+
 }
 
-
+let weekdays = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
+let setCity = function(city){
+    cityBox.textContent = city;
+}
+let setWeather = function(weather){
+    switch(weather){
+        case 'Clear' :
+            new p5(sunny);
+            idx = 0;
+            break;
+        case 'Clouds':
+        case 'Mist':
+            new p5(cloudy);
+            idx = 1;
+            break;
+        case 'Rain':
+        case 'Drizzle':
+            new p5(rainy);
+            idx = 2;
+            break;
+        case 'Snow' :
+            new p5(snowy);
+            idx = 3;
+            break;
+        case 'Tornado' :
+            new p5(windy);
+            idx = 4;
+            break;
+        case 'Dust':
+        case 'Ash':
+            new p5(dusty);
+            idx = 5;
+            break;
+        case 'Thunderstorm' :
+            new p5(thunder);
+            idx = 6;
+            break;
+    }
+}
+let setDate = function(){
+    const today = new Date();
+    const day = weekdays[today.getDay()]
+    return day
+}
 let canvas;
 
 function inputInit(name,min,max,value,step){
@@ -70,7 +87,7 @@ function inputInit(name,min,max,value,step){
     name.setAttribute('value',value.toString());
     name.setAttribute('step',step.toString());
 }
-let bgColor= 'rgb(240,241,246)'
+let bgColor= 'rgb(220,219,239)'
 
 let rainy = function(r) {
     let rainRange = document.querySelector('#input');
@@ -646,3 +663,4 @@ let freeze = function(f){
         shiver = Math.floor(24/parseInt(freezeRange.value));
     }
 }
+

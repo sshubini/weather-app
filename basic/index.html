@@ -21,7 +21,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: url("back10.jpg") no-repeat 50% 50% / cover;
+            background: #d3d3eb;
+            /*background: url("back10.jpg") no-repeat 50% 50% / cover;*/
             /*opacity: 0.8;*/
             width: 100%;
             height: 100%;
@@ -32,19 +33,13 @@
             width: 240px;
             height:60px;
             overflow: hidden;
-            background: rgba( 255, 255, 255, 0.10 );
-            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.2 );
-            backdrop-filter: blur(7px);
-            -webkit-backdrop-filter: blur(7px);
-            border-radius: 10px;
         }
         .title{
             font-family: 'Poppins', sans-serif;
             font-weight: 900;
             letter-spacing: 0.1em;
             font-size: 40px;
-            color: rgba( 255, 255, 255, 0.80 );
-            text-shadow: 0 8px 10px rgba(194, 122, 59, 0.60 );
+            color: #fff;
             width: 100%;
             line-height: 60px;
         }
@@ -52,18 +47,18 @@
             position:absolute;
             width: 100%;
             text-align: center;
-           
-        }
-        #out-container{
-            display: flex;
 
         }
         .weather{
             margin: 5px 0px;
             width: 240px;
             height: 240px;
-            background: rgba( 255, 255, 255, 0.10 );
-            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.2 );
+            background: rgba( 255, 255, 255, 0.20 );
+            box-shadow:
+                    0 -15px 15px 0 rgba( 255, 255, 255, 0.2 ) ,
+                    15px 0 15px 0 rgba( 255, 255, 255, 0.2 ) ,
+                    -15px 0 15px 0 rgba( 255, 255, 255, 0.2 ) ,
+                    0 15px 15px 0 rgba( 31, 38, 135, 0.2 );
             backdrop-filter: blur(7px);
             -webkit-backdrop-filter: blur(7px);
             border-radius: 10px;
@@ -122,11 +117,25 @@
             border-radius: 10px;
             margin:5px 10px;
         }
+        .info{
+            display: ;
+        }
+        .city,.temp{
+            text-transform: uppercase;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 20px;
+        }
 
     </style>
 </head>
 <body>
 <div id="wrap">
+    <div class="info">
+        <p class="city">seoul</p>
+        <p class="temp">21</p>
+    </div>
     <div class="weather">
         <div id="container"></div>
         <input type="range" id ="input" min="1" max="7" value="3">
