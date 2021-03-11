@@ -1,7 +1,15 @@
 const APIkey = 'd45d73bd9864b3ae2216f9a07f82a08d';
 const inputs = document.querySelector('input');
-const cityBox = document.querySelector('.city');
-let idx;
+const info = document.querySelector('.info');
+const cityName = info.querySelector('.city');
+const tempTxt = info.querySelector('.temp');
+const dayName = info.querySelector('.day');
+let index;
+
+// dom
+const title = document.querySelector('.title');
+const cont = document.querySelector('#container');
+
 
 const weatherInfo = new Promise((resolve, reject) => {
     if('geolocation' in navigator) {
@@ -20,7 +28,6 @@ function getInfo(lat,lon){
     ).then(function(response){
         return response.json();
     }).then(function(json){
-        console.log(json)
         return {
             city: json.name,
             temp: Math.round(json.main.temp- 273.15),
@@ -30,54 +37,59 @@ function getInfo(lat,lon){
         console.log(info)
         setCity(info.city);
         setWeather(info.weather);
-    console.log(setDate())
+        setDate();
+        setTemp(info.temp);
+        Slider.load_init(title,cont,index);
     })
 
 }
 
 let weekdays = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
 let setCity = function(city){
-    cityBox.textContent = city;
+    cityName.textContent = city;
 }
 let setWeather = function(weather){
     switch(weather){
         case 'Clear' :
             new p5(sunny);
-            idx = 0;
+            index = 0;
             break;
         case 'Clouds':
         case 'Mist':
+        case 'Haze':
             new p5(cloudy);
-            idx = 1;
+            index = 1;
             break;
         case 'Rain':
         case 'Drizzle':
             new p5(rainy);
-            idx = 2;
+            index = 2;
             break;
         case 'Snow' :
             new p5(snowy);
-            idx = 3;
+            index = 3;
             break;
         case 'Tornado' :
             new p5(windy);
-            idx = 4;
+            index = 4;
             break;
         case 'Dust':
         case 'Ash':
             new p5(dusty);
-            idx = 5;
+            index = 5;
             break;
         case 'Thunderstorm' :
             new p5(thunder);
-            idx = 6;
+            index = 6;
             break;
     }
 }
 let setDate = function(){
     const today = new Date();
-    const day = weekdays[today.getDay()]
-    return day
+    dayName.textContent = weekdays[today.getDay()]
+}
+let setTemp = function(temp){
+    tempTxt.textContent = temp;
 }
 let canvas;
 
@@ -87,7 +99,8 @@ function inputInit(name,min,max,value,step){
     name.setAttribute('value',value.toString());
     name.setAttribute('step',step.toString());
 }
-let bgColor= 'rgb(220,219,239)'
+//let bgColor= 'rgb(220,219,239)'
+let bgColor= 'rgb(255,255,255)'
 
 let rainy = function(r) {
     let rainRange = document.querySelector('#input');
@@ -247,7 +260,7 @@ let thunder = function(t){
         }
         display(){
             t.translate(54,20);
-            t.fill(255,255,0,this.opacity);
+            t.fill(245, 221, 66,this.opacity);
             t.triangle(0,0,0, 50, 50, 50);
             t.translate(15,-15);
             t.triangle(-50,50,0,100,0,50);
