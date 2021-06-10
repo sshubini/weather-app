@@ -24,7 +24,7 @@ const weatherInfo = new Promise((resolve, reject) => {
 
 function getInfo(lat,lon){
     fetch(
-        `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIkey}`
     ).then(function(response){
         return response.json();
     }).then(function(json){
