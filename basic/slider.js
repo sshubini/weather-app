@@ -123,9 +123,11 @@ var Slider = (function (){
         }
     }
     let getPosition = function(e){
-        console.dir(e.originalEvent)
+
         if (e.type.split('touch').length > 1) {
-            return {x:e.originalEvent.touches[0].clientX, y:e.originalEvent.touches[0].clientY}
+            console.dir(e)
+            console.dir(e.originalEvent)
+            //return {x:e.originalEvent.touches[0].clientX, y:e.originalEvent.touches[0].clientY}
         }
         return {x:e.clientX, y:e.clientY};
     }
