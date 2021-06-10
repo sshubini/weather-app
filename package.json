@@ -1,0 +1,19 @@
+{
+  "name": "interacive-weather-app",
+  "version": "1.0.0",
+  "description": "interactive weather icons on canvas",
+  "main": "p5.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sshusshu/weather-app.git"
+  },
+  "author": "Subin Lim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sshusshu/weather-app/issues"
+  },
+  "homepage": "https://github.com/sshusshu/weather-app#readme"
+}
