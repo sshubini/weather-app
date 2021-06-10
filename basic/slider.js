@@ -123,10 +123,7 @@ var Slider = (function (){
         }
     }
     let getPosition = function(e){
-
         if (e.type.split('touch').length > 1) {
-            console.dir(e)
-            console.dir(e.originalEvent)
             return {x:e.changedTouches[0].clientX, y:e.changedTouches[0].clientY}
         }
         return {x:e.clientX, y:e.clientY};
