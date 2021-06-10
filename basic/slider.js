@@ -26,7 +26,7 @@ var Slider = (function (){
 
     let mouseDown = function(e){
         e.preventDefault();
-        console.log('down')
+        //console.log('down')
         //last x값을 설정
         isDrag = true;
         isLeaved = false;
@@ -46,7 +46,7 @@ var Slider = (function (){
     }
     let mouseUp = function(e){
         e.preventDefault();
-        console.log('up')
+       // console.log('up')
         //idx를 빼거나 더해서 스냅
         isDrag = false;
         snapX();
@@ -54,7 +54,7 @@ var Slider = (function (){
     }
     let mouseLeave = function(e){
         e.preventDefault();
-        console.log('leave')
+      //  console.log('leave')
         //idx를 빼거나 더해서 스냅
         isDrag = false;
         snapX();
@@ -72,13 +72,13 @@ var Slider = (function (){
         }else if(idx>elCount-1){
             idx = elCount-1
         }
-        console.log(idx,lastX-directX)
+       // console.log(idx,lastX-directX)
         movedX = idx * eachW;
         setX(true);
         setCvs(idx);
     }
     let setX = function(animation){
-        if(movedX <0){
+        if(movedX<0){
             movedX=0;
         }else if(movedX > maxW){
             movedX = maxW
@@ -88,7 +88,7 @@ var Slider = (function (){
         }else{
             title.style.transition = `transform 0.0s ease-in-out`
         }
-        console.log(movedX)
+       // console.log(movedX)
         title.style.transform = `translate(-${movedX}px)`
     }
     let setCvs = function(idx){
@@ -126,17 +126,19 @@ var Slider = (function (){
         if (e.type.split('touch').length > 1) {
             return {x:e.originalEvent.touches[0].clientX, y:e.originalEvent.touches[0].clientY}
         }
+        console.dir(e.originalEvent)
         return {x:e.clientX, y:e.clientY};
     }
 
     let addEvent =  function(){
         el.addEventListener('mousedown',mouseDown);
-        el.addEventListener('touchstart',mouseDown);
         el.addEventListener('mousemove',mouseMove);
-        el.addEventListener('touchmove',mouseMove);
         el.addEventListener('mouseup',mouseUp);
-        el.addEventListener('touchend',mouseUp);
         el.addEventListener('mouseleave',mouseLeave);
+
+        el.addEventListener('touchstart',mouseDown);
+        el.addEventListener('touchmove',mouseMove);
+        el.addEventListener('touchend',mouseUp);
         el.addEventListener('touchcancel',mouseLeave);
     }
 

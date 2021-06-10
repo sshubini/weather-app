@@ -34,7 +34,7 @@ function getInfo(lat,lon){
             weather:json.weather[0].main,
         }
     }).then(function(info){
-        console.log(info)
+        //console.log(info)
         setCity(info.city);
         setWeather(info.weather);
         setDate();
