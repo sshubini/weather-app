@@ -30,7 +30,7 @@ function getInfo(lat,lon){
     }).then(function(json){
         return {
             city: json.name,
-            temp: Math.round(json.main.temp- 273.15),
+            temp: Math.round(json.main.temp - 273.15),
             weather:json.weather[0].main,
         }
     }).then(function(info){

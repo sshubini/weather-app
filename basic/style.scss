@@ -1,0 +1,156 @@
+@import "./scss_helper/helper";
+
+@include break-point($mobile) {
+    body{
+        #wrap{
+            background: #000000;
+             @include vw-convert-mo(padding-top, 180);
+             //@include per-convert-pc(padding-top,180,1920);
+        }
+    } 
+}  
+
+
+// body{
+//     width: 100vw;
+//     height:100vh;
+//     // #wrap{
+//     //     display:flex;
+//     //     flex-direction: column;
+//     //     justify-content: center;
+//     //     align-items: center;
+//     //     background: #d3d3eb;
+//     //     width: 100%;
+//     //     height: 100%;
+//     //     .weather{
+//     //         padding: 20px 30px;
+//     //         box-sizing:border-box;
+//     //         width: 50%;
+//     //         height: auto;
+//     //         background: rgba( 255, 255, 255, 1);
+//     //         box-shadow:
+//     //                 0 -15px 15px 0 rgba( 255, 255, 255, 0.1 ) ,
+//     //                 15px 0 15px 0 rgba( 255, 255, 255, 0.1 ) ,
+//     //                 -15px 0 15px 0 rgba( 255, 255, 255, 0.1 ) ,
+//     //                 0 15px 15px 0 rgba( 31, 38, 135, 0.2 );
+//     //         border-radius: 10px;
+//     //     }
+//     // }
+//     .title-box{
+//         position:relative;
+//         margin-top:20px;
+//         height:44px;
+//         overflow: hidden;
+//         cursor:grab;
+//     }
+//     .title-box p {
+//         position: absolute;
+//         bottom: 0;
+//         text-align: center;
+//         width: 100%;
+//         color: #b7b7b7;
+//         font-size: 14px;
+//         font-weight:200;
+//         font-family: 'Poppins', sans-serif;
+//     }
+//     .title{
+//         font-family: 'Poppins', sans-serif;
+//         font-weight: 500;
+//         font-size: 24px;
+//         color: #808080;
+//         width: 100%;
+//     }
+//     .title li{
+//         position:absolute;
+//         width: 100%;
+//         text-align: center;
+//     }
+ 
+//     #container{
+//         align-self: flex-start;
+//         width: 220px;
+//         height: 120px;
+//         margin: 30px auto 40px;
+//     }
+//     input[type=range] {
+//         height: 30px;
+//         -webkit-appearance: none;
+//         /*margin:  10%;*/
+//         width: 100%;
+//         background: transparent;
+//     }
+//     input[type=range]:focus {
+//         outline: none;
+//     }
+//     input[type=range]::-webkit-slider-runnable-track {
+//         width: 100%;
+//         height: 6px;
+//         cursor: pointer;
+//         animate: 0.2s;
+//         /*background: rgba( 255, 255, 255, 0.20 );*/
+//         box-shadow: inset 0 0 3px rgba( 31, 38, 135, 0.35 );
+//         border:none;
+//         border-radius: 3px;
+//     }
+//     input[type=range]::-webkit-slider-thumb {
+//         box-shadow: 0 0 4px 0 rgba( 31, 38, 135, 0.35 );
+//         border: 1px solid #e9e9e9;
+//         height: 20px;
+//         width: 20px;
+//         border-radius: 5px;
+//         background: rgba(255,255,255,0.8);
+//         cursor: pointer;
+//         -webkit-appearance: none;
+//         margin-top: -8px;
+//     }
+//     input[type=range]:focus::-webkit-slider-runnable-track {
+//         /*background: #f1f1f1;*/
+//     }
+//     button{
+//         font-family: 'Poppins', sans-serif;
+//         /*font-family: 'Roboto', sans-serif;*/
+//         font-weight: 600;
+//         letter-spacing: 0.1em;
+//         color: #748ebf;
+//         border:none;
+//         background: rgba( 255, 255, 255, 0.20 );
+//         box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.15 );
+//         backdrop-filter: blur( 7px );
+//         -webkit-backdrop-filter: blur( 7px );
+//         border-radius: 10px;
+//         margin:5px 10px;
+//     }
+//     .info{
+//         display:flex;
+//         margin-bottom: 10px;
+//     }
+//     .right{
+//         margin-left:30px;
+//         padding-left:30px;
+//         border-left:1px solid #e9e9e9;
+//     }
+    
+//     .temp{
+//         font-family: 'Poppins', sans-serif;
+//         font-weight: 500;
+//         font-size: 40px;
+//         color: #666;
+//     }
+//     .temp-mark{
+//         font-size:30px;
+//         color: #666;
+//         vertical-align: super;
+//     }
+//     .city,.day{
+//         text-transform: uppercase;
+//         font-family: 'Poppins', sans-serif;
+//         font-weight: 300;
+//         color: #999;
+//         line-height:20px;
+//         font-size: 16px;
+//     }
+//     .day{
+//         color: #b8b8b8;
+//     }
+    
+// }
