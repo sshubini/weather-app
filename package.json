@@ -1,6 +1,7 @@
 {
   "name": "interacive-weather-app",
   "version": "1.0.0",
+  "type": "module",
   "description": "interactive weather icons on canvas",
   "main": "p5.js",
   "scripts": {
@@ -15,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/sshusshu/weather-app/issues"
   },
-  "homepage": "https://github.com/sshusshu/weather-app#readme"
+  "homepage": "https://github.com/sshusshu/weather-app#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.7"
+  }
 }

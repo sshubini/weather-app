@@ -1,26 +1,44 @@
-var Slider = (function (){
-    let el,elCont;
-    let elCount,eachW,totalW,maxW;
-    let idx;
+import rainy from "./weather/rainy.js";
+import sunny from "./weather/sunny.js";
+import thunder from "./weather/thunder.js";
+import dusty from "./weather/dusty.js";
+import snowy from "./weather/snowy.js";
+import cloudy from "./weather/cloudy.js";
+import windy from "./weather/windy.js";
+import freeze from "./weather/freeze.js";
+
+const Slider = ($el,$elCont,$idx) => {
+    // let el,elCont;
+    // let elCount,eachW,totalW,maxW;
+    const el = $el;
+    const elCont = $elCont;
+    const elCount = el.childElementCount;
+    const eachW = el.clientWidth;
+    const totalW = eachW * elCount;
+    const maxW = totalW-eachW;
+    // let idx;
     let isDrag = false;
     let isLeaved = false;
     let directX;
     let lastX;
-    let movedX;
-    let _init = function (){}
-    let _load_init = function($el,$elCont,$idx){
-        el = $el;
-        elCont = $elCont;
-        elCount = el.childElementCount;
-        eachW = el.clientWidth;
-        totalW = eachW * elCount;
-        maxW = totalW-eachW;
+    // let movedX;
+    let idx=$idx;
+    let movedX = idx*eachW;
+    const _load_init = () => {
+        // const el = $el;
+        // const elCont = $elCont;
+        // const elCount = el.childElementCount;
+        // const eachW = el.clientWidth;
+        // const totalW = eachW * elCount;
+        // const maxW = totalW-eachW;
+        
+        // console.log(el,elCont,elCount,eachW,totalW)
         for(let i = 0; i<elCount;i++){
             el.children[i].style.left = `${i*100}%`
         }
-        idx=$idx;
-        movedX = idx*eachW
-        title.style.transform = `translate(-${movedX}px)`
+        // const idx=$idx;
+        // const movedX = idx*eachW
+        el.style.transform = `translate(-${movedX}px)`
         addEvent();
     }
 
@@ -32,7 +50,7 @@ var Slider = (function (){
         isLeaved = false;
         lastX = getPosition(e).x;
         directX = getPosition(e).x;
-        title.addEventListener('mouseleave',mouseLeave)
+        el.addEventListener('mouseleave',mouseLeave)
 
     }
     let mouseMove = function(e){
@@ -84,12 +102,12 @@ var Slider = (function (){
             movedX = maxW
         }
         if(animation){
-            title.style.transition = `transform 0.3s ease-in-out`
+            el.style.transition = `transform 0.3s ease-in-out`
         }else{
-            title.style.transition = `transform 0.0s ease-in-out`
+            el.style.transition = `transform 0.0s ease-in-out`
         }
        // console.log(movedX)
-        title.style.transform = `translate(-${movedX}px)`
+        el.style.transform = `translate(-${movedX}px)`
     }
     let setCvs = function(idx){
         switch (idx){
@@ -141,11 +159,10 @@ var Slider = (function (){
         el.addEventListener('touchcancel',mouseLeave);
     }
 
-    return{
-        init:_init,
-        load_init:_load_init
-    }
-})();
+    return _load_init
+};
+
+export default Slider;
 
 
 
