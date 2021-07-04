@@ -48,7 +48,6 @@ const getInfo = (lat,lon) => {
     })
 
 }
-
 let weekdays = ['Sun','Mon','Tue','Wed','Thur','Fri','Sat'];
 const setCity = city => {
     cityName.textContent = city;
@@ -56,6 +55,7 @@ const setCity = city => {
 const setWeather = weatherInfo => {
     let weather;
     cont.innerHTML = '';
+    // console.log(cont.childNodes[0])
     switch(weatherInfo){
         case 'Clear' :
             index = 0;
@@ -90,7 +90,10 @@ const setWeather = weatherInfo => {
             weather = thunder;
             break;
     }
-    new p5(weather)
+    new p5(weather,'container')
+    cont.className=`cvs${index}`
+    console.dir(cont.childNodes[0]);
+    // console.log(p5.instance)
 }
 const setDate = () => {
     const today = new Date();

@@ -13,9 +13,9 @@ const Slider = ($el,$elCont,$idx) => {
     const el = $el;
     const elCont = $elCont;
     const elCount = el.childElementCount;
-    const eachW = el.clientWidth;
-    const totalW = eachW * elCount;
-    const maxW = totalW-eachW;
+    let eachW = el.clientWidth;
+    let totalW = eachW * elCount;
+    let maxW = totalW-eachW;
     // let idx;
     let isDrag = false;
     let isLeaved = false;
@@ -42,7 +42,7 @@ const Slider = ($el,$elCont,$idx) => {
         addEvent();
     }
 
-    let mouseDown = function(e){
+    const mouseDown = function(e){
         e.preventDefault();
         //console.log('down')
         //last x값을 설정
@@ -53,7 +53,7 @@ const Slider = ($el,$elCont,$idx) => {
         el.addEventListener('mouseleave',mouseLeave)
 
     }
-    let mouseMove = function(e){
+    const mouseMove = function(e){
         e.preventDefault();
         // console.log('move')
         //last x와 현재x의 차이를 style에서 빼줌
@@ -62,7 +62,7 @@ const Slider = ($el,$elCont,$idx) => {
         lastX = getPosition(e).x;
         setX(false);
     }
-    let mouseUp = function(e){
+    const mouseUp = function(e){
         e.preventDefault();
        // console.log('up')
         //idx를 빼거나 더해서 스냅
@@ -70,7 +70,7 @@ const Slider = ($el,$elCont,$idx) => {
         snapX();
         el.removeEventListener('mouseleave',mouseLeave)
     }
-    let mouseLeave = function(e){
+    const mouseLeave = function(e){
         e.preventDefault();
       //  console.log('leave')
         //idx를 빼거나 더해서 스냅
@@ -78,7 +78,7 @@ const Slider = ($el,$elCont,$idx) => {
         snapX();
         isLeaved = true;
     }
-    let snapX = function(){
+    const snapX = function(){
         if(isLeaved) return;
         if(lastX-directX<0){
             idx++
@@ -95,7 +95,7 @@ const Slider = ($el,$elCont,$idx) => {
         setX(true);
         setCvs(idx);
     }
-    let setX = function(animation){
+    const setX = function(animation){
         if(movedX<0){
             movedX=0;
         }else if(movedX > maxW){
@@ -109,38 +109,43 @@ const Slider = ($el,$elCont,$idx) => {
        // console.log(movedX)
         el.style.transform = `translate(-${movedX}px)`
     }
-    let setCvs = function(idx){
+    const setCvs = function(idx){
+        let weather;
         switch (idx){
             case 0:
-                new p5(sunny);
+                weather = sunny;
                 break;
             case 1:
-                new p5(cloudy);
+                weather = cloudy;
                 break;
             case 2:
-                new p5(rainy);
+                weather = rainy;
                 break;
             case 3:
-                new p5(snowy);
+                weather = snowy;
                 break;
             case 4:
-                new p5(windy);
+                weather = windy;
                 break;
             case 5:
-                new p5(dusty);
+                weather = dusty;
                 break;
             case 6:
-                new p5(thunder);
+                weather = thunder;
                 break;
             case 7:
-                new p5(freeze);
+                weather = freeze;
                 break;
         }
+        new p5(weather,'container')
+        
+        elCont.className=`cvs${idx}`
+        // console.log('elcont',elCont)
         if(elCont.childElementCount >= 2){
             elCont.removeChild(elCont.firstChild);
         }
     }
-    let getPosition = function(e){
+    const getPosition = function(e){
         if (e.type.split('touch').length > 1) {
             return {x:e.changedTouches[0].clientX, y:e.changedTouches[0].clientY}
         }
@@ -153,10 +158,22 @@ const Slider = ($el,$elCont,$idx) => {
         el.addEventListener('mouseup',mouseUp);
         el.addEventListener('mouseleave',mouseLeave);
 
-        el.addEventListener('touchstart',mouseDown);
-        el.addEventListener('touchmove',mouseMove);
+        el.addEventListener('touchstart',mouseDown,{passive: true});
+        el.addEventListener('touchmove',mouseMove,{passive: true});
         el.addEventListener('touchend',mouseUp);
         el.addEventListener('touchcancel',mouseLeave);
+        window.addEventListener('resize',()=>{
+            eachW = el.clientWidth;
+            totalW = eachW * elCount;
+            maxW = totalW-eachW;
+            idx=$idx;
+            movedX = idx*eachW;
+            
+            el.style.transition = `transform 0.0s ease-in-out`
+            el.style.transform = `translate(-${movedX}px)`;
+
+            setCvs(idx)
+        })
     }
 
     return _load_init

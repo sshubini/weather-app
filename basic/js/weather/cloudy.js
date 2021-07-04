@@ -3,6 +3,7 @@ let canvas;
 const bgColor= 'rgb(255,255,255)'
 
 const cloudy = u => {
+let cont = document.querySelector('#container');
 let cloudRange = document.querySelector('#input');
 inputInit(cloudRange,1,7,3,1)
 let c;
@@ -12,8 +13,8 @@ let weight = 28;
 let y;
 
 u.setup = ()=>{
-    canvas = u.createCanvas(120, 120);
-    canvas.parent('container');
+    canvas = u.createCanvas(cont.clientWidth,cont.clientWidth);
+    // canvas.parent('container');
     c = {
         x:u.width/2,
         y:u.height/2
@@ -27,12 +28,18 @@ u.setup = ()=>{
     }
 }
 
+u.windowResized = () => {
+    u.resizeCanvas(cont.clientWidth,cont.clientWidth);
+}
+
 u.draw = ()=>{
+    if(!cont.classList.contains('cvs1')) u.noLoop(); 
     u.background(bgColor);
     for(let i =0;i<clouds.length;i++){
         clouds[i].display();
         clouds[i].move();
     }
+     
 }
 
 class Cloud{

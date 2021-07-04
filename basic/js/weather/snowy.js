@@ -2,14 +2,14 @@ import inputInit from "../input.js";
 let canvas;
 const bgColor= 'rgb(255,255,255)'
 const snowy = c => {
+    let cont = document.querySelector('#container');
     let snow = document.querySelector('#input');
     inputInit(snow,1,7,3,2)
     let snowAmount = parseInt(snow.value);
     let snows = [];
     // console.log(idx)
     c.setup = function(){
-        canvas = c.createCanvas(120, 120);
-        canvas.parent('container');
+        canvas = c.createCanvas(cont.clientWidth,cont.clientWidth);
         switch(snowAmount){
             case 1:
                 snows.push(new Snowflake(c.width/2,c.height/2))
@@ -37,16 +37,18 @@ const snowy = c => {
                 break;
         }
     }
-
+    c.windowResized = () => {
+        c.resizeCanvas(cont.clientWidth,cont.clientWidth);
+    }
     c.draw = function(){
+        if(!cont.classList.contains('cvs3')) c.noLoop();  
         c.background(bgColor);
-        //    console.log(snows)
+
         for(let i =0;i<snowAmount;i++){
             snows[i].display();
             snows[i].move();
         }
-        console.log(canvas)
-        // c.noLoop();
+
     }
 
     class Snowflake{

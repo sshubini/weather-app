@@ -2,20 +2,23 @@ import inputInit from "../input.js";
 let canvas;
 const bgColor= 'rgb(255,255,255)'
 const freeze = f =>{
-    
+    let cont = document.querySelector('#container');
     let freezeRange = document.querySelector('#input');
     inputInit(freezeRange,2,8,6,2);
     let shiver = Math.floor(24/parseInt(freezeRange.value));
     let mainObj;
 
     f.setup = function(){
-        canvas = f.createCanvas(120, 120);
+        canvas = f.createCanvas(cont.clientWidth, cont.clientWidth);
         canvas.parent('container');
         f.noStroke();
         mainObj= new MainObj()
     }
-
+    f.windowResized = () => {
+        f.resizeCanvas(cont.clientWidth,cont.clientWidth);
+    }
     f.draw = function() {
+        if(!cont.classList.contains('cvs7')) f.noLoop();  
         f.background(bgColor);
         mainObj.display();
         mainObj.move();

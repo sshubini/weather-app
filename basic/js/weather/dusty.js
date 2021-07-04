@@ -2,6 +2,7 @@ import inputInit from "../input.js";
 let canvas;
 const bgColor= 'rgb(255,255,255)'
 const dusty = d => {
+    let cont = document.querySelector('#container');
     let dustRange = document.querySelector('#input');
     inputInit(dustRange,1,5,2,1)
     let dusts=[];
@@ -11,8 +12,8 @@ const dusty = d => {
     let dustsW = dustRow * dustW * 2;
 
     d.setup = function(){
-        canvas = d.createCanvas(120, 120);
-        canvas.parent('container');
+      canvas = d.createCanvas(cont.clientWidth, cont.clientWidth);
+        // canvas.parent('container');
         for(let i =0;i<dustCol;i++){
             dusts.push([])
             for(let j =0;j<dustRow;j++){
@@ -20,8 +21,12 @@ const dusty = d => {
             }
         }
     }
-
+    d.windowResized = () => {
+      d.resizeCanvas(cont.clientWidth,cont.clientWidth);
+   }
     d.draw = function(){
+      
+      if(!cont.classList.contains('cvs5')) d.noLoop();  
         d.background(bgColor);
         d.translate(d.width/2 -dustsW/2 +dustW,d.height/2 -dustsW/2+dustW);
         d.noStroke();

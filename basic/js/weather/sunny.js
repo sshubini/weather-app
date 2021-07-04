@@ -2,6 +2,7 @@ import inputInit from "../input.js";
 let canvas;
 const bgColor= 'rgb(255,255,255)'
 const sunny = s => {
+    let cont = document.querySelector('#container');
 
     let sunRange = document.querySelector('#input');
     inputInit(sunRange,1,9,3,2);
@@ -11,14 +12,19 @@ const sunny = s => {
     let maxScale =100;
     let shineOpacity = 140;
     let sun1,sun2;
+
     s.setup = function(){
-        canvas = s.createCanvas(120, 120);
+        canvas = s.createCanvas(cont.clientWidth, cont.clientWidth);
         canvas.parent('container');
         s.noStroke();
         sun1 = new Sun(s.width/2,s.height/2,sunScale,shineOpacity);
         sun2 = new Sun(s.width/2,s.height/2,sunScale,255)
     }
+    s.windowResized = () => {
+        s.resizeCanvas(cont.clientWidth,cont.clientWidth);
+    }
     s.draw = function(){
+        if(!cont.classList.contains('cvs0')) s.noLoop();  
         s.background(bgColor);
         sun1.display();
         sun1.move();

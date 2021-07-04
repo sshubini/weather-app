@@ -66,7 +66,7 @@ body{
         align-self: flex-start;
         @include per-convert-pc(width,420,600);
         @include per-convert-pc(height,320,600);
-        @include per-convert-pc(margin,30 auto 40,600);
+        @include per-convert-pc(margin,30 auto 30,600);
         // width: 220px;
         // height: 120px;
     }

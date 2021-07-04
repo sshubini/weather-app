@@ -152,8 +152,8 @@ body #container {
   width: 70%;
   height: 320px;
   height: 53.33333%;
-  margin: 30px auto 40px;
-  margin: 5% auto 6.66667%;
+  margin: 30px auto 30px;
+  margin: 5% auto 5%;
 }
 
 body input[type=range] {

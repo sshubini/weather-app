@@ -2,6 +2,7 @@ import inputInit from "../input.js";
 let canvas;
 const bgColor= 'rgb(255,255,255)'
 const windy = w => {
+    let cont = document.querySelector('#container');
     let windRange = document.querySelector('#input');
     inputInit(windRange,1,6,2,1)
     let windSpeed = parseInt(windRange.value);
@@ -9,9 +10,12 @@ const windy = w => {
     let winds =[];
 
     w.setup = function(){
-        canvas = w.createCanvas(120, 120);
+        canvas = w.createCanvas(cont.clientWidth, cont.clientWidth);
         canvas.parent('container');
         createWinds();
+    }
+    w.windowResized = () => {
+        w.resizeCanvas(cont.clientWidth,cont.clientWidth);
     }
 
     function createWinds(){
