@@ -243,6 +243,42 @@ body .title li {
   text-align: center;
 }
 
+body .title li:nth-child(1) {
+  left: 100%;
+}
+
+body .title li:nth-child(2) {
+  left: 200%;
+}
+
+body .title li:nth-child(3) {
+  left: 300%;
+}
+
+body .title li:nth-child(4) {
+  left: 400%;
+}
+
+body .title li:nth-child(5) {
+  left: 500%;
+}
+
+body .title li:nth-child(6) {
+  left: 600%;
+}
+
+body .title li:nth-child(7) {
+  left: 700%;
+}
+
+body .title li:nth-child(8) {
+  left: 800%;
+}
+
+body .title li:nth-child(9) {
+  left: 900%;
+}
+
 @media only screen and (max-width: 767.7px) {
   body .title {
     font-size: 24px;
@@ -256,6 +292,11 @@ body #container {
   width: 60%;
   margin: 40px auto 60px;
   margin: 6.66667% auto 10%;
+}
+
+body #container canvas {
+  width: 100%;
+  height: 180px;
 }
 
 @media only screen and (max-width: 767.7px) {
