@@ -17,7 +17,7 @@ let index;
 
 // dom
 const title = document.querySelector('.title');
-const cont = document.querySelector('#container');
+const cont = document.querySelector('.canvas-box');
 
 if('geolocation' in navigator) {
     /* 위치정보 사용 가능 */
@@ -26,6 +26,8 @@ if('geolocation' in navigator) {
         let lon = position.coords.longitude;
         getInfo(lat,lon)
     });
+}else{
+    getInfo(37, 127)
 }
 
 const getInfo = (lat,lon) => {
@@ -42,7 +44,6 @@ const getInfo = (lat,lon) => {
         setWeather(info.weather);
         setDate();
         setTemp(info.temp);
-        //console.log(Slider)
          Slider(title,cont,index)();
     })
 
@@ -54,7 +55,6 @@ const setCity = city => {
 const setWeather = weatherInfo => {
     let weather;
     cont.innerHTML = '';
-    // console.log(cont.childNodes[0])
     switch(weatherInfo){
         case 'Clear' :
             index = 0;
@@ -91,8 +91,6 @@ const setWeather = weatherInfo => {
     }
     new p5(weather,'container')
     cont.className=`cvs${index}`
-    console.dir(cont.childNodes[0]);
-    // console.log(p5.instance)
 }
 const setDate = () => {
     const today = new Date();

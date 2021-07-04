@@ -2,18 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Touchable Weather</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  maximum-scale=1.0, user-scalable=yes">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Share -->
+    <meta name="title" content="Touchable Weather">
+    <meta name="description" content="">
+    <meta name="keywords" content="날씨,날씨앱,인터렉티브 날씨앱,터처블 웨더,weather,weatherapp,Touchable weather,icon weather,">
+    <link rel="image_src" href="http://design.samsung.com/kr/share/thumb/contents/share_thumb_183_400x400.jpg">
+
+    <!-- Share for Facebook -->
+    <meta property="og:title" content="Touchable Weather">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="http://design.samsung.com/kr/share/thumb/contents/share_thumb_183_400x400.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Share for Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Touchable Weather">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="http://design.samsung.com/kr/share/thumb/contents/share_thumb_183_400x400.jpg">
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,600;0,900;1,900&display=swap" rel="stylesheet">
+   
+    <!-- CSS -->
+    <link rel="stylesheet" href="scss_helper/helper.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
+
+    <!--JS-->
+    <script src="../p5.js"></script>
+    <script type="module" src="js/basic.js"></script>
+    <script type="module" src="js/icon.js"></script>
+ 
     <title>Document</title>
 </head>
 <body>
 <div id="wrap">
-    <div class="weather">  
-        <div class="title-box">
+    <section class="weather">  
+        <section class="title-box">
             <ul class="title">
                 <li>Sunny</li>
                 <li>Cloudy</li>
@@ -25,39 +54,40 @@
                 <li>Freeze</li>
             </ul>
             <p>How's the weather today?</p>
-        </div>
-        <div id="container">
+        </section>
+        <section class="canvas-box" id="container">
             <canvas></canvas>
-        </div>
-        <div class="info">
+        </section>
+        <section class="info">
             <div class="temp-box">
-                <p><span class="temp">21</span><span class="temp-mark">°</span></p>
+                <p>
+                    <span class="temp">21</span>
+                    <span class="temp-mark">°</span>
+                </p>
             </div>
             <div class="line"></div>
             <div class="city-box">
                 <p class="city">seoul</p>
                 <p class="day">Mon</p>
             </div>
-        </div>
+        </section>
         <input type="range" id ="input" min="1" max="7" value="3">
-        <div class="drag-btn hide">
-            <i>아이콘</i>
-            <span>Drag Slide</span>     
+        <div class="btn-wrap">
+            <div class="drag-btn hide">
+                <i>아이콘</i>
+                <span>Drag Slide</span>     
+            </div>
+            <div class="dusty-btn hide">
+                <i>아이콘</i>
+                <span>Touch</span>     
+            </div>
+            <div class="input-btn">
+                <i>아이콘</i>
+                <span>Change</span>     
+            </div>
         </div>
-        <div class="dusty-btn hide">
-            <i>아이콘</i>
-            <span>Touch</span>     
-        </div>
-        <div class="input-btn">
-            <i>아이콘</i>
-            <span>Change</span>     
-        </div>
-    </div>
+    </section>
 
 </div>
-<script src="../p5.js"></script>
-<script type="module" src="js/basic.js"></script>
-<script type="module" src="js/icon.js"></script>
-<!-- <script type="module" src="js/slider.js"></script> -->
 </body>
 </html>
