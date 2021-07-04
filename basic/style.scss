@@ -4,6 +4,14 @@
 body{
     width: 100vw;
     height:100vh;
+    //공통
+    @keyframes flash{
+        from{opacity: 1;}
+        to{opacity: 0;}
+    }
+    .hide{display: none;}
+    .show{display: block;}
+
     #wrap{
         display:flex;
         flex-direction: column;
@@ -13,8 +21,10 @@ body{
         width: 100%;
         height: 100%;
         .weather{
-            @include per-convert-pc(padding,40 60 120,1920);
+            position: relative;
+            @include per-convert-pc(padding,40 60 60,1920);
             @include per-convert-pc(width,600,1920);
+            @include per-convert-pc(border-radius,25,600);
             box-sizing:border-box;
             height: auto;
             background: rgba( 255, 255, 255, 1);
@@ -23,27 +33,62 @@ body{
                     15px 0 15px 0 rgba( 255, 255, 255, 0.1 ) ,
                     -15px 0 15px 0 rgba( 255, 255, 255, 0.1 ) ,
                     0 15px 15px 0 rgba( 31, 38, 135, 0.2 );
-            border-radius: 10px;
+            .drag-btn,.input-btn,.dusty-btn{
+                position: absolute;
+                @include font-device('Poppins', 16, 24);
+                opacity: 1;
+               animation: flash 1s cubic-bezier(0.79, 0.01, 0.18, 1.01) infinite;
+            }
+            .drag-btn{
+                @include per-convert-pc(top,60,600);
+                right: -20px;
+            }
+            .input-btn{
+                @include per-convert-pc(bottom,60,600);
+                right: -20px;
+            }
+            .dusty-btn{
+                @include per-convert-pc(bottom,300,600);
+                right: -20px;
+            }
             @include break-point($mobile) {
                 width:270px;
                 padding: 20px 30px; 
+                .drag-btn{
+                    top: 45px;
+                }
             } 
         }
     }
+
+    
     .title-box{
         position:relative;
         margin-top:20px;
-        height:44px;
+        height:64px;
         overflow: hidden;
         cursor:grab;
+        //@include per-convert-pc(height,400,1920);
         p {
             position: absolute;
-            bottom: 0;
-            @include font-device('Poppins', 16, 16);
+            @include per-convert-pc(top,400,600);
+            @include font-device('Poppins', 20, 20);
             font-weight:200;
             text-align: center;
             width: 100%;
             color: #b7b7b7;
+            -webkit-touch-callout: none;
+            user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+        }
+       
+        @include break-point($mobile) {
+            height: 44px;
+            p{
+                font-size: 14px;
+            }
         }
     }
     .title{
@@ -64,11 +109,15 @@ body{
  
     #container{
         align-self: flex-start;
-        @include per-convert-pc(width,420,600);
-        @include per-convert-pc(height,320,600);
-        @include per-convert-pc(margin,30 auto 30,600);
+        @include per-convert-pc(width,360,600);
+        //@include per-convert-pc(height,320,600);
+        @include per-convert-pc(margin,40 auto 60,600);
         // width: 220px;
         // height: 120px;
+        @include break-point($mobile) {
+            width: 120px;
+            height: 120px;
+        }
     }
     input[type=range] {
         height: 30px;

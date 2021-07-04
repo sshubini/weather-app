@@ -5,11 +5,10 @@ import dusty from "./weather/dusty.js";
 import snowy from "./weather/snowy.js";
 import cloudy from "./weather/cloudy.js";
 import windy from "./weather/windy.js";
-import freeze from "./weather/freeze.js";
 import Slider from "./slider.js";
 
 const APIkey = 'd45d73bd9864b3ae2216f9a07f82a08d';
-const inputs = document.querySelector('input');
+
 const info = document.querySelector('.info');
 const cityName = info.querySelector('.city');
 const tempTxt = info.querySelector('.temp');

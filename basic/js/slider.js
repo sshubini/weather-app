@@ -141,6 +141,20 @@ const Slider = ($el,$elCont,$idx) => {
         
         elCont.className=`cvs${idx}`
         // console.log('elcont',elCont)
+        
+        const dustyIcon = document.querySelector('.dusty-btn');
+        if(idx === 5){
+            // const el = document.querySelector('.weather')
+            // dustyIcon.classList.add('dusty-btn');
+            // dustyIcon.innerHTML = '<i>아이콘</i><span>Touch</span>';
+            // el.appendChild(dustyIcon);
+            
+            const dustyEl = document.querySelector('#container');
+            dustyIcon.classList.remove('hide')
+            dustyEl.addEventListener('mousemove',()=>{dustyIcon.classList.add('hide');});
+        }else{
+           dustyIcon.classList.add('hide')
+        }
         if(elCont.childElementCount >= 2){
             elCont.removeChild(elCont.firstChild);
         }
