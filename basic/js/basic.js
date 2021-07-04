@@ -19,6 +19,10 @@ let index;
 const title = document.querySelector('.title');
 const cont = document.querySelector('.canvas-box');
 
+
+
+
+
 if('geolocation' in navigator) {
     /* 위치정보 사용 가능 */
     navigator.geolocation.getCurrentPosition((position) => {

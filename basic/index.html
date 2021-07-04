@@ -33,6 +33,12 @@
     <link rel="stylesheet" href="style.css">
 
     <!--JS-->
+    <script>
+        const agent = navigator.userAgent.toLowerCase();
+        if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+            alert("Touchable weather는 인터넷 익스플로러에서 지원되지 않습니다.");
+        }
+    </script>
     <script src="../p5.js"></script>
     <script type="module" src="js/basic.js"></script>
     <script type="module" src="js/icon.js"></script>
