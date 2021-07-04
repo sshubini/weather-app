@@ -1,6 +1,8 @@
 import inputInit from "../input.js";
+
 let canvas;
-const bgColor= 'rgb(255,255,255)'
+const bgColor= 'rgb(255,255,255)';
+
 const windy = w => {
     let cont = document.querySelector('#container');
     let windRange = document.querySelector('#input');
@@ -14,6 +16,7 @@ const windy = w => {
         canvas.parent('container');
         createWinds();
     }
+
     w.windowResized = () => {
         w.resizeCanvas(cont.clientWidth,cont.clientWidth);
     }
@@ -33,7 +36,6 @@ const windy = w => {
         for(let i=0; i<winds.length ;i++){
             winds[i].display();
             winds[i].move();
-
         }
     }
 
@@ -59,14 +61,16 @@ const windy = w => {
         }
     }
 
-// event listeners
-    windRange.addEventListener('change',windChanged)
     function windChanged(){
         windSpeed = parseInt(this.value);
         windPower = parseInt(this.value*2);
         winds =[];
         createWinds();
     }
+
+// event listeners
+    windRange.addEventListener('change',windChanged);
+
 }
 
 export default windy;

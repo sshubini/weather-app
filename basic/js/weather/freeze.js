@@ -1,6 +1,8 @@
 import inputInit from "../input.js";   
+
 let canvas;
-const bgColor= 'rgb(255,255,255)'
+const bgColor= 'rgb(255,255,255)';
+
 const freeze = f =>{
     let cont = document.querySelector('#container');
     let freezeRange = document.querySelector('#input');
@@ -12,11 +14,13 @@ const freeze = f =>{
         canvas = f.createCanvas(cont.clientWidth, cont.clientWidth);
         canvas.parent('container');
         f.noStroke();
-        mainObj= new MainObj()
+        mainObj= new MainObj();
     }
+
     f.windowResized = () => {
         f.resizeCanvas(cont.clientWidth,cont.clientWidth);
     }
+
     f.draw = function() {
         if(!cont.classList.contains('cvs7')) f.noLoop();  
         f.background(bgColor);
@@ -41,16 +45,16 @@ const freeze = f =>{
             this.count++;
         }
         display(){
-            f.translate(f.width/2+16,f.height/2+10)
-            f.fill(50,160,255,100)
+            f.translate(f.width/2+16,f.height/2+10);
+            f.fill(50,160,255,100);
             f.push();
-            f.translate(this.x1,0)
-            polygon(0,0,42,6)
+            f.translate(this.x1,0);
+            polygon(0,0,42,6);
             f.pop();
-            f.translate(-40,-25)
+            f.translate(-40,-25);
             f.push();
-            f.translate(this.x2,0)
-            polygon(0,0,30,6)
+            f.translate(this.x2,0);
+            polygon(0,0,30,6);
             f.pop();
         }
     }
@@ -66,11 +70,13 @@ const freeze = f =>{
         f.endShape(f.CLOSE);
     }
 
-    freezeRange.addEventListener('change',freezeChanged)
     function freezeChanged(){
         freezeRange = document.querySelector('#input');
         shiver = Math.floor(24/parseInt(freezeRange.value));
     }
+    
+    freezeRange.addEventListener('change',freezeChanged);
+
 }
 
 export default freeze;

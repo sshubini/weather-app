@@ -1,6 +1,8 @@
 import inputInit from "../input.js";   
+
 let canvas;
 const bgColor= 'rgb(255,255,255)'
+
 const dusty = d => {
     let cont = document.querySelector('#container');
     let dustRange = document.querySelector('#input');
@@ -21,9 +23,11 @@ const dusty = d => {
             }
         }
     }
+
     d.windowResized = () => {
       d.resizeCanvas(cont.clientWidth,cont.clientWidth);
    }
+
     d.draw = function(){
       
       if(!cont.classList.contains('cvs5')) d.noLoop();  
@@ -38,7 +42,6 @@ const dusty = d => {
             }
         }
     }
-
     class Dust{
         constructor(x,y,w,h){
           this.x = x;
@@ -62,8 +65,6 @@ const dusty = d => {
             }
             this.bool = true;
           }
-
-
         }
         display(){
             d.push();
@@ -74,8 +75,7 @@ const dusty = d => {
         }
       }
 
-    dustRange.addEventListener('change',dustChanged);
-    function dustChanged(){
+      function dustChanged(){
         dustCol= dustRange.value*3;
         dustRow= dustRange.value*3;
         dustsW = dustRow * dustW * 2;
@@ -86,7 +86,9 @@ const dusty = d => {
                 dusts[i].push(new Dust(j*dustW*2,i*dustW*2,dustW,dustW))
             }
         }
-    }
+      }
+
+    dustRange.addEventListener('change',dustChanged);
 
 }
 

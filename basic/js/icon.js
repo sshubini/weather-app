@@ -2,10 +2,8 @@
 
 const inputEl = document.querySelector('#input');
 const dragEl = document.querySelector('.title-box');
-
 const inputIcon = document.querySelector('.input-btn');
 const dragIcon = document.querySelector('.drag-btn');
-
 let dragFlag = false;
 
 const flash = (hideIcon) =>{

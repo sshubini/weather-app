@@ -16,28 +16,17 @@ const Slider = ($el,$elCont,$idx) => {
     let eachW = el.clientWidth;
     let totalW = eachW * elCount;
     let maxW = totalW-eachW;
-    // let idx;
     let isDrag = false;
     let isLeaved = false;
     let directX;
     let lastX;
-    // let movedX;
     let idx=$idx;
     let movedX = idx*eachW;
+
     const _load_init = () => {
-        // const el = $el;
-        // const elCont = $elCont;
-        // const elCount = el.childElementCount;
-        // const eachW = el.clientWidth;
-        // const totalW = eachW * elCount;
-        // const maxW = totalW-eachW;
-        
-        // console.log(el,elCont,elCount,eachW,totalW)
         for(let i = 0; i<elCount;i++){
             el.children[i].style.left = `${i*100}%`
         }
-        // const idx=$idx;
-        // const movedX = idx*eachW
         el.style.transform = `translate(-${movedX}px)`
         addEvent();
     }
@@ -106,7 +95,6 @@ const Slider = ($el,$elCont,$idx) => {
         }else{
             el.style.transition = `transform 0.0s ease-in-out`
         }
-       // console.log(movedX)
         el.style.transform = `translate(-${movedX}px)`
     }
     const setCvs = function(idx){
@@ -140,18 +128,14 @@ const Slider = ($el,$elCont,$idx) => {
         new p5(weather,'container')
         
         elCont.className=`cvs${idx}`
-        // console.log('elcont',elCont)
         
         const dustyIcon = document.querySelector('.dusty-btn');
         if(idx === 5){
-            // const el = document.querySelector('.weather')
-            // dustyIcon.classList.add('dusty-btn');
-            // dustyIcon.innerHTML = '<i>아이콘</i><span>Touch</span>';
-            // el.appendChild(dustyIcon);
-            
             const dustyEl = document.querySelector('#container');
             dustyIcon.classList.remove('hide')
-            dustyEl.addEventListener('mousemove',()=>{dustyIcon.classList.add('hide');});
+            dustyEl.addEventListener('mousemove',()=>{
+                dustyIcon.classList.add('hide');
+            });
         }else{
            dustyIcon.classList.add('hide')
         }

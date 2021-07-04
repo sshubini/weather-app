@@ -16,17 +16,14 @@ const rainy = r => {
 
     r.setup = function(){
         canvas = r.createCanvas(cont.clientWidth,cont.clientWidth);
-        // canvas.parent('container');
         for(let i = 0 ; i < rainStrength*3; i++){
             let x1= i*weight*4+weight/2;
-            // console.log('x',x1)
             let y1= r.random(0,r.height);
             let length = r.random(15,50);
             let speed = r.random(0,2)+rainStrength/2;
             rains.push(new Rain(x1,y1,x1,y1+length+rainStrength,speed))
             drops.push(new Rain(x1,y1,x1,y1,speed+0.5))
         }
-        // r.noLoop();
     }
     r.windowResized = () => {
         r.resizeCanvas(cont.clientWidth,cont.clientWidth);
@@ -34,7 +31,6 @@ const rainy = r => {
     r.draw = function(){
         if(!cont.classList.contains('cvs2')) r.noLoop();  
         r.background(bgColor);
-        // console.log(rains)
         for(let i = 0 ; i < rainStrength*3; i++){
             rains[i].display();
             rains[i].move();
@@ -68,8 +64,6 @@ const rainy = r => {
         }
     }
 
-    rainRange.addEventListener('change',rainChanged)
-
     function rainChanged(){
         rainStrength = rainRange.value;
         rains=[];
@@ -85,6 +79,8 @@ const rainy = r => {
             drops.push(new Rain(x1,y1,x1,y1,speed+1));
         }
     }
+    
+    rainRange.addEventListener('change',rainChanged)
 
 }
 

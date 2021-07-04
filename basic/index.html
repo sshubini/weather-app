@@ -36,12 +36,11 @@
     <script src="../p5.js"></script>
     <script type="module" src="js/basic.js"></script>
     <script type="module" src="js/icon.js"></script>
- 
-    <title>Document</title>
 </head>
+
 <body>
 <div id="wrap">
-    <section class="weather">  
+    <div class="weather">  
         <section class="title-box">
             <ul class="title">
                 <li>Sunny</li>
@@ -72,7 +71,7 @@
             </div>
         </section>
         <input type="range" id ="input" min="1" max="7" value="3">
-        <div class="btn-wrap">
+        <section class="btn-box">
             <div class="drag-btn hide">
                 <i>아이콘</i>
                 <span>Drag Slide</span>     
@@ -85,9 +84,8 @@
                 <i>아이콘</i>
                 <span>Change</span>     
             </div>
-        </div>
-    </section>
-
+        </section>
+    </div>
 </div>
 </body>
 </html>
