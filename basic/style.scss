@@ -35,15 +35,20 @@
                 position: absolute;
                 @include font-device('Poppins', 16, 24);
                 opacity: 1;
-               animation: flash 1s cubic-bezier(0.79, 0.01, 0.18, 1.01) infinite;
+                animation: flash 1s cubic-bezier(0.79, 0.01, 0.18, 1.01) infinite;
+                
+                img{
+                    width: 10px;
+                    display: block
+                }
             }
             .drag-btn{
                 @include per-convert-pc(top,60,600);
                 right: -20px;
             }
             .input-btn{
-                @include per-convert-pc(bottom,60,600);
-                right: -20px;
+                @include per-convert-pc(bottom,0,600);
+                right: 0;
             }
             .dusty-btn{
                 @include per-convert-pc(bottom,300,600);
