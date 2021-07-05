@@ -37,33 +37,40 @@
                 position: absolute;
                 @include font-device('Poppins', 16, 24);
                 opacity: 1;
-                animation: flash 1s cubic-bezier(0.79, 0.01, 0.18, 1.01) infinite;
+                animation: flash 2s cubic-bezier(0.79, 0.01, 0.18, 1.01) infinite;
                 text-align: center;
                 i{
                     display: block;
-                    width: 50px;
                     margin: auto;
                     //@include per-convert-pc(width,100,600);
-                    img{width: 100%;opacity: 0.4;}
+                    img{width: 100%;}
                 }
                 span{
                     display: block;
-                    color: rgb(77, 77, 77);
+                    color: #999;
                 }
             }
             .drag-btn{
-                @include per-convert-pc(top,60,600);
-                right: 20px;
+                @include per-convert-pc(top,-30,600);
+                @include per-convert-pc(right,100,600);
+                i{
+                    transform:rotate(-180deg);
+                    width: 60px;
+                }
             }
             .input-btn{
-                @include per-convert-pc(bottom,-50,600);
-                right: 20px;
+                @include per-convert-pc(bottom,-30,600);
+                @include per-convert-pc(right,100,600);
+                i{
+                    width: 45px;
+                }
             }
             .dusty-btn{
                 @include per-convert-pc(bottom,200,600);
                 right: 50px;
                 i{
                     transform:rotate(-40deg);
+                    width: 50px;
                 }
 
             }
@@ -71,7 +78,15 @@
                 width:270px;
                 padding: 20px 30px; 
                 .drag-btn{
-                    top: 45px;
+                    top: -40px;                
+                    font-size: 16px;
+                }
+                .input-btn{
+                    bottom:-50px;               
+                    font-size: 16px;
+                }
+                .dusty-btn{
+                    font-size: 16px;
                 }
             } 
         }
