@@ -1439,6 +1439,7 @@ body #wrap .weather .drag-btn, body #wrap .weather .input-btn, body #wrap .weath
   opacity: 1;
   -webkit-animation: flash 1s cubic-bezier(0.79, 0.01, 0.18, 1.01) infinite;
           animation: flash 1s cubic-bezier(0.79, 0.01, 0.18, 1.01) infinite;
+  text-align: center;
 }
 
 @media only screen and (max-width: 767.7px) {
@@ -1474,22 +1475,43 @@ body #wrap .weather .drag-btn, body #wrap .weather .input-btn, body #wrap .weath
   }
 }
 
+body #wrap .weather .drag-btn i, body #wrap .weather .input-btn i, body #wrap .weather .dusty-btn i {
+  display: block;
+  width: 50px;
+  margin: auto;
+}
+
+body #wrap .weather .drag-btn i img, body #wrap .weather .input-btn i img, body #wrap .weather .dusty-btn i img {
+  width: 100%;
+  opacity: 0.4;
+}
+
+body #wrap .weather .drag-btn span, body #wrap .weather .input-btn span, body #wrap .weather .dusty-btn span {
+  display: block;
+  color: #4d4d4d;
+}
+
 body #wrap .weather .drag-btn {
   top: 60px;
   top: 10%;
-  right: -20px;
+  right: 20px;
 }
 
 body #wrap .weather .input-btn {
-  bottom: 60px;
-  bottom: 10%;
-  right: -20px;
+  bottom: -50px;
+  bottom: -8.33333%;
+  right: 20px;
 }
 
 body #wrap .weather .dusty-btn {
-  bottom: 300px;
-  bottom: 50%;
-  right: -20px;
+  bottom: 200px;
+  bottom: 33.33333%;
+  right: 50px;
+}
+
+body #wrap .weather .dusty-btn i {
+  -webkit-transform: rotate(-40deg);
+          transform: rotate(-40deg);
 }
 
 @media only screen and (max-width: 767.7px) {

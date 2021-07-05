@@ -1,3 +1,5 @@
+@import "./scss_helper/helper";
+ 
  body{
     width: 100vw;
     height:100vh;
@@ -36,23 +38,34 @@
                 @include font-device('Poppins', 16, 24);
                 opacity: 1;
                 animation: flash 1s cubic-bezier(0.79, 0.01, 0.18, 1.01) infinite;
-                
-                img{
-                    width: 10px;
-                    display: block
+                text-align: center;
+                i{
+                    display: block;
+                    width: 50px;
+                    margin: auto;
+                    //@include per-convert-pc(width,100,600);
+                    img{width: 100%;opacity: 0.4;}
+                }
+                span{
+                    display: block;
+                    color: rgb(77, 77, 77);
                 }
             }
             .drag-btn{
                 @include per-convert-pc(top,60,600);
-                right: -20px;
+                right: 20px;
             }
             .input-btn{
-                @include per-convert-pc(bottom,0,600);
-                right: 0;
+                @include per-convert-pc(bottom,-50,600);
+                right: 20px;
             }
             .dusty-btn{
-                @include per-convert-pc(bottom,300,600);
-                right: -20px;
+                @include per-convert-pc(bottom,200,600);
+                right: 50px;
+                i{
+                    transform:rotate(-40deg);
+                }
+
             }
             @include break-point($mobile) {
                 width:270px;
