@@ -70,8 +70,8 @@ input value값에 따라 속도와 양을 조절하는 방식
   - mousedown, mousemove, mouseup, mouseleave 이벤트로 X좌표값을 조절하여 드래그시 슬라이더 이동
   - snapX 호출시 index값 변경 & X좌표로 translate되고 index값에 매칭하여 캔버스 생성
   
-- input
-  - 
+- 인풋
+  - input range value 값 변경에 따라 캔버스 내의 날씨 아이콘 객체를 조작
 
 ---
 
@@ -79,18 +79,29 @@ input value값에 따라 속도와 양을 조절하는 방식
 ## 🔳 주요 이슈 사항
 
 1. 날씨별 캔버스 생성 시
-   - index 값으로 슬라이더와 캔버스를 매칭
+  - index 값으로 슬라이더와 캔버스를 매칭
     - 이전에 있던 캔버스가 계속 남아있어 현재의 캔버스와 input value가 엉킴
-   - 문제 해결 방법
+  - 문제 해결 방법
     - 새 캔버스 생성시 캔버스 태그의 부모에 클래스 `cvs${index}`을 부여하여
       그 클래스를 포함하지 않는 캔버스의 루핑을 중단
+    - removeChild 로 이전 캔버스 삭제  
       
-      
-2. 슬라이더 이동시 
+2. 날씨 중 snowy 아이콘
+  - 객체 위치 좌표의 규칙이 없어 코드 고민 
+  - 문제 해결 방법
+    - input value별 좌표 정보를 저장 후 switch 문으로 케이스마다 다르게 구현  
+
+3. 슬라이더 이동시 
   - 트랜지션이 적용된 이동 과정이 보여 부자연스러움
   - 문제 해결 방법
-    - setX 함수의 인자로 boolean 값으로 트랜지션이 적용될 때와 아닐 때를 구분 
+    - setX 함수의 인자로 boolean 값을 전달해 트랜지션이 적용될 때와 아닐 때를 구분 
   
+4. 크로스 브라우징 이슈
+  - p5js가 인터넷 익스플로어에서 지원되지 않아 오작동
+  - 문제 해결 방법
+    - navigator로 이용자의 브라우저를 파악해 alert 메세지 전달
+
+ 
   
 ---
 
@@ -104,15 +115,9 @@ input value값에 따라 속도와 양을 조절하는 방식
 
 ---
 
-## 🔳 호출스택과 이벤트 루프
+## 🔳 모듈화
 
-1. setInterval tick함수 선언시 호출스택에서 
-2. tick함수 인수로 입력한 콜백함수(goDown)와 시간(2000ms)을 백그라운드에 전달
-3. 시간(2000ms)을 주기로 콜백함수(goDown)를 태스크 큐에 전달
-4. 태스크 큐에서 호출스택이 비워질 때마다 호출스택에 콜백함수(goDown)를 전달 실행
 
-_keyup이벤트도 마찬가지로 실행_
-_방향키를 누를 때마다 이벤트가 발생하고 넘겨지는 콜백함수가 실행_
 
 
 ---
@@ -121,13 +126,9 @@ _방향키를 누를 때마다 이벤트가 발생하고 넘겨지는 콜백함�
 
 1.  Clone the repo:
 
-        git clone https://github.com/sshusshu/real_tetris.git
+        git clone https://github.com/sshusshu/weather-app.git
 
 2.  Install dependencies:
 
         npm install
-
-3.  Run server:
-
-        json-server --watch ./server/db.json --port 3200
 
