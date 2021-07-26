@@ -87,21 +87,81 @@ input value값에 따라 속도와 양을 조절하는 방식
     - 새 캔버스 생성시 캔버스 태그의 부모에 클래스 `cvs${index}`을 부여하여
       그 클래스를 포함하지 않는 캔버스의 루핑을 중단
     - removeChild 로 이전 캔버스 삭제  
+    ````js
+       if(!cont.classList.contains('cvs1')) u.noLoop(); 
+    ````
+    ````js
+       if(elCont.childElementCount >= 2){
+           elCont.removeChild(elCont.firstChild);
+       }
+    ````
       
 2. 날씨 중 snowy 아이콘
   - 객체 위치 좌표의 규칙이 없어 코드 고민 
   - 문제 해결 방법
     - input value별 좌표 정보를 저장 후 switch 문으로 케이스마다 다르게 구현  
+    
+    ````js
+    
+    
+    canvas = c.createCanvas(cont.clientWidth,cont.clientWidth);
+        switch(snowAmount){
+            case 1:
+                snows.push(new Snowflake(c.width/2,c.height/2))
+                break;
+            case 3:
+                snows.push(new Snowflake(c.width/4+4,c.height*5/16))
+                snows.push(new Snowflake(c.width*3/4-4,c.height*5/16))
+                snows.push(new Snowflake(c.width/2,c.height*11/16))
+                break;
+            case 5:
+                snows.push(new Snowflake(c.width*3/8-4,c.height*3/8-4))
+                snows.push(new Snowflake(c.width*5/8+4,c.height*3/8-4))
+                snows.push(new Snowflake(c.width/4-4,c.height*5/8+4))
+                snows.push(new Snowflake(c.width/2,c.height*5/8+4))
+                snows.push(new Snowflake(c.width*3/4+4,c.height*5/8+4))
+                break;
+            case 7:
+                snows.push(new Snowflake(c.width*3/8,c.height/4))
+                snows.push(new Snowflake(c.width*5/8,c.height/4))
+                snows.push(new Snowflake(c.width/4,c.height/2))
+                snows.push(new Snowflake(c.width/2,c.height/2))
+                snows.push(new Snowflake(c.width*3/4,c.height/2))
+                snows.push(new Snowflake(c.width*3/8,c.height*3/4))
+                snows.push(new Snowflake(c.width*5/8,c.height*3/4))
+                break;
+        }
+        
+    ````
 
 3. 슬라이더 이동시 
   - 트랜지션이 적용된 이동 과정이 보여 부자연스러움
   - 문제 해결 방법
     - setX 함수의 인자로 boolean 값을 전달해 트랜지션이 적용될 때와 아닐 때를 구분 
-  
+  ````js
+     const setX = function(animation){
+        if(movedX<0){
+            movedX=0;
+        }else if(movedX > maxW){
+            movedX = maxW
+        }
+        
+         el.style.transition =  animation? `transform 0.3s ease-in-out` 
+                                         : `transform 0.0s ease-in-out`
+                                         
+        el.style.transform = `translate(-${movedX}px)`
+    }
+  ````
 4. 크로스 브라우징 이슈
   - p5js가 인터넷 익스플로어에서 지원되지 않아 오작동
   - 문제 해결 방법
     - navigator로 이용자의 브라우저를 파악해 alert 메세지 전달
+    ````js
+        const agent = navigator.userAgent.toLowerCase();
+        if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+            alert("Touchable weather는 인터넷 익스플로러에서 지원되지 않습니다.");
+        }
+    ````
 
  
   
@@ -109,11 +169,11 @@ input value값에 따라 속도와 양을 조절하는 방식
 
 ## 🔳 프로젝트를 통해 배운점
 
+> - 반응형에 대한 이해
+> - 모듈화의 중요성 
 > - 외부 API 사용법
 > - 캔버스에 대한 이해
 > - ES6의 이해와 적용
-> - 모듈화의 중요성 
-> - 반응형에 대한 이해
 
 ---
 
