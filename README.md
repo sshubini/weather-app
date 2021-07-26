@@ -175,12 +175,55 @@ input value값에 따라 속도와 양을 조절하는 방식
 > - ES6의 이해와 적용
 
 ---
+## 🔳 객체화
+
+ES6의 class를 사용하여 낱개 아이콘을 객체화하고 필요에 의해 중복 사용  
+
+예)
+````js
+
+    class Cloud{
+        constructor(x1,x2,y,speed,direction){
+            this.x1 = x1;
+            this.x2 = x2;
+            this.y = y;
+            this.speed = speed;
+            this.direction=direction;
+        }
+        move(){
+
+            if(this.x1-weight/2 <= 0 || this.x2+weight/2 >= u.width){
+                this.speed = -this.speed;
+            }
+            if(this.direction){
+                this.x1 += this.speed;
+                this.x2 += this.speed;
+            }else{
+                this.x1 -= this.speed;
+                this.x2 -= this.speed;
+            }
+        }
+
+        display(){
+            u.stroke(219,225,228,180);
+            u.strokeWeight(weight);
+            u.line(this.x1,this.y,this.x2,this.y);
+        }
+    }
+````
+
 
 ## 🔳 모듈화
 
-ES6의 import와 export를 사용하여 날씨별로 js파일을 정리 후 필요한 곳에서 사용
+ES6의 import와 export를 사용하여 날씨별로 js파일을 정리 후 필요한 곳에서 사용  
 
-
+예)
+````js
+   export default cloudy;
+````
+````js
+   import cloudy from "./weather/cloudy.js";
+````
 
 
 
