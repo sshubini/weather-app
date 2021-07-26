@@ -18,6 +18,8 @@ _Keyword : Vanilla JS(ES6) / P5 JS / CANVAS / SCSS_
 > 퍼센트, vw기준으로 브라우저 크기에 따라 반응 
 
 ---
+<img width="19.5%" src="https://user-images.githubusercontent.com/66768245/126972173-ae064c04-f273-4599-b565-93b719733007.gif"/> <img width="19.5%" src="https://user-images.githubusercontent.com/66768245/126972859-faf91f52-b61b-4b52-90fe-d32d0203a93a.gif"/>  <img width="19.5%" src="https://user-images.githubusercontent.com/66768245/126973200-b91fc8ed-a981-4a92-9d15-d4f6c4f85630.gif"/> <img width="19.5%" src="https://user-images.githubusercontent.com/66768245/126973526-4dd77c17-9aba-4b29-8256-54befaf4f2f5.gif"/> <img width="19.5%" src="https://user-images.githubusercontent.com/66768245/126973821-d2200d22-dd67-4ed2-a822-f0263993ac63.gif"/>
+
 
 ## 🔳 코드구성  
 
