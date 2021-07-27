@@ -151,7 +151,24 @@ input value값에 따라 속도와 양을 조절하는 방식
         el.style.transform = `translate(-${movedX}px)`
     }
   ````
-4. 크로스 브라우징 이슈
+4. 리사이징 시 슬라이더 위치 
+  - 윈도우 리사이징 시 슬라이더의 너비값을 설정
+  ````js
+     window.addEventListener('resize',()=>{
+         eachW = el.clientWidth;
+         totalW = eachW * elCount;
+         maxW = totalW-eachW;
+         idx=$idx;
+         movedX = idx*eachW;
+
+         el.style.transition = `transform 0.0s ease-in-out`
+         el.style.transform = `translate(-${movedX}px)`;
+
+         setCvs(idx)
+     })
+  ````
+
+5. 크로스 브라우징 이슈
   - p5js가 인터넷 익스플로어에서 지원되지 않아 오작동
   - 문제 해결 방법
     - navigator로 이용자의 브라우저를 파악해 alert 메세지 전달
